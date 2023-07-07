@@ -1,0 +1,16 @@
+Index: src/main/java/br/edu/ifpb/lids/config/SwaggerConfig.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/br/edu/ifpb/lids/config/SwaggerConfig.java b/src/main/java/br/edu/ifpb/lids/config/SwaggerConfig.java
+--- a/src/main/java/br/edu/ifpb/lids/config/SwaggerConfig.java	
++++ b/src/main/java/br/edu/ifpb/lids/config/SwaggerConfig.java	(date 1687744722216)
+@@ -31,6 +31,7 @@
+                 .title("Lids")
+                 .description("Esta API visa gerenciar o LIDS.")
+                 .version("1.0.0")
++                .license("")
+                 .licenseUrl("http://localhost:8080")
+                 .build();
+     }

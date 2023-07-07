@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-LidsApplication<lids>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "br.edu.ifpb.lids.LidsApplication",
+            "projectName": "lids",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
