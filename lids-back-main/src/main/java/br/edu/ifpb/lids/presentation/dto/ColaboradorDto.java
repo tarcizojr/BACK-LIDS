@@ -19,5 +19,9 @@ public class ColaboradorDto {
     private String tipo;
     private String status;
     private String linkCurriculo;
+    private String cidade;
+    private String estado;
+    private String endereco;
+
 
 }

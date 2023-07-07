@@ -50,7 +50,7 @@ public class ColaboradorController {
     @DeleteMapping("{id}")
     public ResponseEntity delete(@PathVariable("id") Long id){
         colaboradorService.delete(id);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return  ResponseEntity.ok("");
     }
 
     private ColaboradorDto mapToColaboradorDto (Colaborador colaborador) {

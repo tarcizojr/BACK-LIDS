@@ -27,8 +27,11 @@ public class ConverteService {
 
     public Colaborador dtoToColaborador (ColaboradorDto dto) {
         Colaborador colaborador = modelMapper.map(dto, Colaborador.class);
+        
         if(dto.getStatus().equals("INATIVO")){
             colaborador.setStatus(Status.INATIVO);
+        }else{
+            colaborador.setStatus(Status.ATIVO);
         }
         
         return colaborador;

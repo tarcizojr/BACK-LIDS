@@ -38,4 +38,10 @@ public abstract class Associado implements Serializable {
     private String senha;
 
     private Tipo tipo;
+
+    private String cidade;
+
+    private String estado;
+
+    private String endereco;
 }
