@@ -20,7 +20,7 @@ public class SecurityConfig {
             authorizeConfig -> {
               authorizeConfig.requestMatchers("/public").permitAll();
               authorizeConfig.requestMatchers("/logout").permitAll();
-              authorizeConfig.requestMatchers("/teste").permitAll();
+              authorizeConfig.requestMatchers("/api/token").permitAll();
               authorizeConfig.anyRequest().authenticated();
             })
         .oauth2Login(Customizer.withDefaults())
