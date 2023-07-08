@@ -4,6 +4,7 @@ import br.edu.ifpb.lids.business.service.ColaboradorService;
 import br.edu.ifpb.lids.model.entity.Colaborador;
 import br.edu.ifpb.lids.model.repository.ColaboradorRepository;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,22 +27,41 @@ public class ColaboradorServiceImpl implements ColaboradorService {
 
     @Override
     public Colaborador update(Colaborador colaborador) {
-        return colaboradorRepository.save(colaborador);
+
+        Colaborador colab = findById(colaborador.getId());
+
+        for(Field field : Colaborador.class.getFields()){
+            field.setAccessible(true);
+            try {
+                if(field.get(colaborador)!= null && !field.get(colaborador).equals(field.get(colab)))
+                    field.set(colab, field.get(colaborador));
+            }catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return colaboradorRepository.save(colab);
     }
 
     @Override
     public void delete(Long id) {
+        Colaborador colab = findById(id);
+        if(colab == null)
+            throw new IllegalStateException(String.format("Colaborador não encontrado para o id=%1",id));
         colaboradorRepository.deleteById(id);
     }
 
     @Override
     public List<Colaborador> findAll() {
-        return (List<Colaborador>) colaboradorRepository.findAll();
+        return colaboradorRepository.findAll();
     }
 
     @Override
     public Colaborador findById(Long id) {
-        Colaborador entity = colaboradorRepository.findById(id).get();
-        return entity;
+
+        if(id == null){
+            throw new IllegalStateException("O ID é nulo.");
+        }
+        return colaboradorRepository.findById(id).get();
     }
 }

@@ -29,28 +29,41 @@ public class ColaboradorController {
 	private ModelMapper mapper;
 
     @PostMapping
-    public ResponseEntity create(@RequestBody ColaboradorDto dto){
-        dto.setStatus(Status.INATIVO.toString());
-        Colaborador entity = converteService.dtoToColaborador(dto);
-        
-        colaboradorService.create(entity);
-        dto = converteService.colaboradorToDto(entity);
+    public ResponseEntity create(@RequestBody ColaboradorDto dto) {
 
-        return new ResponseEntity(dto,HttpStatus.CREATED);  
+        try {
+            dto.setStatus(Status.INATIVO.toString());
+            Colaborador entity = converteService.dtoToColaborador(dto);
+
+            entity = colaboradorService.create(entity);
+            dto = converteService.colaboradorToDto(entity);
+
+            return new ResponseEntity(dto, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PutMapping("{id}")
     public ResponseEntity update(@PathVariable("id") Long id, @RequestBody ColaboradorDto dto){
-        dto.setId(id);
-        Colaborador entity = converteService.dtoToColaborador(dto);
-        colaboradorService.update(entity);
-        dto = converteService.colaboradorToDto(entity);
-        return ResponseEntity.ok(dto);
+        try {
+            dto.setId(id);
+            Colaborador entity = converteService.dtoToColaborador(dto);
+            entity = colaboradorService.update(entity);
+            dto = converteService.colaboradorToDto(entity);
+            return ResponseEntity.ok(dto);
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
     @DeleteMapping("{id}")
     public ResponseEntity delete(@PathVariable("id") Long id){
-        colaboradorService.delete(id);
-        return  ResponseEntity.ok("");
+        try {
+            colaboradorService.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     private ColaboradorDto mapToColaboradorDto (Colaborador colaborador) {
@@ -66,10 +79,13 @@ public class ColaboradorController {
     }
 
     @GetMapping("/{id}")
-    public Colaborador findById(@PathVariable("id") Long id) throws Exception{
+    public ResponseEntity findById(@PathVariable("id") Long id) {
         Colaborador resultado = colaboradorService.findById(id);
-        return resultado;
+
+        if (resultado == null) {
+            return ResponseEntity.badRequest().body(new Exception("Colaborador não existe."));
+        } else {
+            return ResponseEntity.ok().body(resultado);
+        }
     }
-
-
 }

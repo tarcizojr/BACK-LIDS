@@ -2,8 +2,6 @@ package br.edu.ifpb.lids.presentation.dto;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
 public class ColaboradorDto {
 
@@ -12,7 +10,6 @@ public class ColaboradorDto {
     private String usuario;
     private String matricula;
     private String dataDeNascimento;
-    private String sexo;
     private String email;
     private String senha;
     private Float cargaHorariaSemanal;
