@@ -20,31 +20,28 @@ public class ConverteService {
     private ModelMapper modelMapper;
     
     public ColaboradorDto colaboradorToDto (Colaborador colaborador) {
-        ColaboradorDto dto = modelMapper.map(colaborador, ColaboradorDto.class);
-        
-        return dto;
+        return modelMapper.map(colaborador, ColaboradorDto.class);
     }
 
     public Colaborador dtoToColaborador (ColaboradorDto dto) {
         Colaborador colaborador = modelMapper.map(dto, Colaborador.class);
-        
-        if(dto.getStatus().equals("INATIVO")){
-            colaborador.setStatus(Status.INATIVO);
-        }else{
-            colaborador.setStatus(Status.ATIVO);
+
+        if(dto.getStatus() != null) {
+            if (dto.getStatus().equals("INATIVO")) {
+                colaborador.setStatus(Status.INATIVO);
+            } else {
+                colaborador.setStatus(Status.ATIVO);
+            }
         }
-        
         return colaborador;
     }
 
         public CoordenadorDto coordenadorToDto (Coordenador coordenador) {
-        CoordenadorDto dto =  modelMapper.map(coordenador, CoordenadorDto.class);
-        return dto;
+        return modelMapper.map(coordenador, CoordenadorDto.class);
     }
 
     public Coordenador dtoToCoordenador (CoordenadorDto dto) {
-        Coordenador coordenador = modelMapper.map(dto, Coordenador.class);
-        return coordenador;
+        return modelMapper.map(dto, Coordenador.class);
     }
 
     public List<ColaboradorDto> colaboradorToDto(List<Colaborador> entities) {

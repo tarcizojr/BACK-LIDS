@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ColaboradorService {
 
-    public Colaborador create(Colaborador colaborador);
+    Colaborador create(Colaborador colaborador);
 
-    public Colaborador update(Colaborador coordenador);
+    Colaborador update(Colaborador colaborador);
 
-    public void delete(Long id);
+    void delete(Long id);
 
-    public List<Colaborador> findAll();
+    List<Colaborador> findAll();
 
-    public Colaborador findById(Long id);
+    Colaborador findById(Long id);
 }
