@@ -18,4 +18,6 @@ public interface ColaboradorService {
     List<Colaborador> findAll();
 
     Colaborador findById(Long id);
+
+    Colaborador findByMatricula(String matricula);
 }
