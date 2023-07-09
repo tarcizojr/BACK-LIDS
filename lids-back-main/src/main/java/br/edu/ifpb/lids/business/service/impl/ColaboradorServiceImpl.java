@@ -7,6 +7,7 @@ import br.edu.ifpb.lids.model.repository.ColaboradorRepository;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     
     @Autowired
     private ColaboradorRepository colaboradorRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
 
     @Override
@@ -28,18 +32,23 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     @Override
     public Colaborador update(Colaborador colaborador) {
 
+        // Colaborador colab = findById(colaborador.getId());
+
+        // for(Field field : Colaborador.class.getFields()){
+        //     field.setAccessible(true);
+        //     try {
+        //         if(field.get(colaborador)!= null && !field.get(colaborador).equals(field.get(colab)))
+        //             field.set(colab, field.get(colaborador));
+        //     }catch (IllegalAccessException e) {
+        //         e.printStackTrace();
+        //     }
+        // }
+
         Colaborador colab = findById(colaborador.getId());
-
-        for(Field field : Colaborador.class.getFields()){
-            field.setAccessible(true);
-            try {
-                if(field.get(colaborador)!= null && !field.get(colaborador).equals(field.get(colab)))
-                    field.set(colab, field.get(colaborador));
-            }catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
+        if(colab == null){
+            throw new IllegalStateException("Colaborador Não Encontrado");
         }
-
+        colab = modelMapper.map(colaborador, Colaborador.class);
         return colaboradorRepository.save(colab);
     }
 
