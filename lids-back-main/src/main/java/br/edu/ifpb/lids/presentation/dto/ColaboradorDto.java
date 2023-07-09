@@ -11,7 +11,6 @@ public class ColaboradorDto {
     private String matricula;
     private String dataDeNascimento;
     private String email;
-    private String senha;
     private Float cargaHorariaSemanal;
     private String tipo;
     private String status;

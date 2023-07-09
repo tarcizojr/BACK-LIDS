@@ -35,8 +35,6 @@ public abstract class Associado implements Serializable {
     @Column(nullable = false)
     private String email;
 
-    private String senha;
-
     private Tipo tipo;
 
     private String cidade;
