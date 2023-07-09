@@ -19,7 +19,8 @@ public class SecurityConfig {
         .authorizeHttpRequests(
             authorizeConfig -> {
               authorizeConfig.requestMatchers("/public").permitAll();
-              authorizeConfig.requestMatchers("/logout").permitAll();
+              authorizeConfig.requestMatchers("/api/**").permitAll();
+
               authorizeConfig.requestMatchers("/api/token").permitAll();
               authorizeConfig.anyRequest().authenticated();
             })
