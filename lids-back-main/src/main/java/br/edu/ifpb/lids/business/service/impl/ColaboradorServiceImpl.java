@@ -29,14 +29,39 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     }
 
     @Override
-    public Colaborador update(Colaborador colaborador) {
+    public Colaborador update(Long id, Colaborador colaborador) {
 
-        Colaborador colab = findById(colaborador.getId());
-        if(colab == null){
+        Colaborador colab;
+
+        try {
+            colab = findById(id);
+        } catch (Exception e) {
             throw new IllegalStateException("Colaborador Não Encontrado");
         }
-        colab = modelMapper.map(colaborador, Colaborador.class);
-        return colaboradorRepository.save(colab);
+       if(colaborador.getNome() != null)
+           colab.setNome(colaborador.getNome());
+       if (colaborador.getUsuario() != null)
+           colab.setUsuario(colaborador.getUsuario());
+       if(colaborador.getMatricula() != null)
+           colab.setMatricula(colaborador.getMatricula());
+       if(colaborador.getDataDeNascimento() != null)
+           colab.setDataDeNascimento(colaborador.getDataDeNascimento());
+       if(colaborador.getEmail() != null)
+           colab.setEmail(colaborador.getEmail());
+       if(colaborador.getTipo() != null)
+           colab.setTipo(colaborador.getTipo());
+       if(colaborador.getCidade() != null)
+           colab.setCidade(colaborador.getCidade());
+       if(colaborador.getEstado() != null)
+           colab.setEstado(colaborador.getEstado());
+       if(colaborador.getEndereco() != null)
+           colab.setEndereco(colaborador.getEndereco());
+       if(colaborador.getStatus() != null)
+           colab.setStatus(colaborador.getStatus());
+       if(colaborador.getLinkCurriculo() != null)
+           colab.setLinkCurriculo(colaborador.getLinkCurriculo());
+
+       return colaboradorRepository.save(colab);
     }
 
     @Override

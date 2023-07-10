@@ -44,12 +44,12 @@ public class ColaboradorController {
         }
     }
 
-    @PutMapping("{id}")
+    @PatchMapping("{id}")
     public ResponseEntity update(@PathVariable("id") Long id, @RequestBody ColaboradorDto dto){
         try {
             dto.setId(id);
             Colaborador entity = converteService.dtoToColaborador(dto);
-            entity = colaboradorService.update(entity);
+            entity = colaboradorService.update(id,entity);
             dto = converteService.colaboradorToDto(entity);
             return ResponseEntity.ok(dto);
         } catch (Exception e){
@@ -71,7 +71,7 @@ public class ColaboradorController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<?> findAll() throws Exception{
+    public ResponseEntity<?> findAll(){
         
         List<ColaboradorDto> dtos = colaboradorService.findAll().stream().map(this::mapToColaboradorDto).toList();
 

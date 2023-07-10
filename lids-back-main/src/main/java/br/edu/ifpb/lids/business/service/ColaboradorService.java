@@ -11,7 +11,7 @@ public interface ColaboradorService {
 
     Colaborador create(Colaborador colaborador);
 
-    Colaborador update(Colaborador colaborador);
+    Colaborador update(Long id,Colaborador colaborador);
 
     void delete(Long id);
 
