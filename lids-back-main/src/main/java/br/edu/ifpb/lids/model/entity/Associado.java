@@ -1,14 +1,12 @@
 package br.edu.ifpb.lids.model.entity;
 
-import br.edu.ifpb.lids.model.enums.Sexo;
 import br.edu.ifpb.lids.model.enums.Tipo;
-import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 @MappedSuperclass
 @Data
@@ -20,26 +18,35 @@ public abstract class Associado implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @NotBlank
+    @Size(min = 5,max = 256)
     private String nome;
 
+    @Size(min = 5 ,max = 50)
     private String usuario;
 
-    @Column(nullable = false)
+    @NotBlank
+    @Size(max = 12)
     private String matricula;
 
-    @Column(nullable = false)
+    @NotBlank
+    @Pattern(regexp = "\\d{2}\\/\\d{2}\\/\\d{4}")
     private String dataDeNascimento;
 
-    
-    @Column(nullable = false)
+    @NotBlank
+    @Email
+    @Size(max = 100)
     private String email;
 
+    @Enumerated(EnumType.STRING)
     private Tipo tipo;
 
+    @Size(max = 50)
     private String cidade;
 
+    @Size(max = 50)
     private String estado;
 
+    @Size(max = 120)
     private String endereco;
 }
