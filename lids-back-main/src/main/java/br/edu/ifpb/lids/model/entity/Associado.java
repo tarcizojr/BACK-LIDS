@@ -38,7 +38,6 @@ public abstract class Associado implements Serializable {
     @Size(max = 100)
     private String email;
 
-    @Enumerated(EnumType.STRING)
     private Tipo tipo;
 
     @Size(max = 50)

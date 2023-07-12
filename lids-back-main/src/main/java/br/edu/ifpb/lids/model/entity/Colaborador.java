@@ -15,8 +15,9 @@ import javax.validation.constraints.Size;
 @Data
 public class Colaborador extends Associado {
 
-    @Enumerated(EnumType.STRING)
+    
     private Status status;
+
     @Size(max = 256)
     private String linkCurriculo;
    
