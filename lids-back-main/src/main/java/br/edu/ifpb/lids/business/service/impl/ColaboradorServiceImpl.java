@@ -67,7 +67,7 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     public void delete(Long id) {
         Colaborador colab = findById(id);
         if(colab == null)
-            throw new IllegalStateException(String.format("Colaborador não encontrado para o id=%1",id));
+            throw new IllegalStateException(String.format("Colaborador não encontrado para o id %d",id));
         colaboradorRepository.deleteById(id);
     }
 
@@ -82,6 +82,7 @@ public class ColaboradorServiceImpl implements ColaboradorService {
         if(id == null){
             throw new IllegalStateException("O ID é nulo.");
         }
+
         return colaboradorRepository.findById(id).get();
     }
 

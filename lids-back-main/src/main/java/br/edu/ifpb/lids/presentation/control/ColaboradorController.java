@@ -62,7 +62,7 @@ public class ColaboradorController {
             colaboradorService.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(String.format("Colaborador não encontrado para o id %d",id));
         }
     }
 
@@ -80,12 +80,12 @@ public class ColaboradorController {
 
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable("id") Long id) {
-        Colaborador resultado = colaboradorService.findById(id);
 
-        if (resultado == null) {
-            return ResponseEntity.badRequest().body(new Exception("Colaborador não existe."));
-        } else {
+        try {
+            Colaborador resultado = colaboradorService.findById(id);
             return ResponseEntity.ok().body(resultado);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(String.format("Colaborador não encontrado para o id %d",id));
         }
     }
 }
