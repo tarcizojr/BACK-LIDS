@@ -1,6 +1,7 @@
 package br.edu.ifpb.lids.model.entity;
 
-import br.edu.ifpb.lids.model.enums.Tipo;
+import br.edu.ifpb.lids.model.enums.StatusAssociado;
+import br.edu.ifpb.lids.model.enums.TipoAssociado;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -30,7 +31,7 @@ public abstract class Associado implements Serializable {
     private String matricula;
 
     @NotBlank
-    @Pattern(regexp = "\\d{2}\\/\\d{2}\\/\\d{4}")
+    @Pattern(regexp = "\\d{2}/\\d{2}/\\d{4}")
     private String dataDeNascimento;
 
     @NotBlank
@@ -38,7 +39,9 @@ public abstract class Associado implements Serializable {
     @Size(max = 100)
     private String email;
 
-    private Tipo tipo;
+    private TipoAssociado tipo;
+
+    private StatusAssociado status;
 
     @Size(max = 50)
     private String cidade;

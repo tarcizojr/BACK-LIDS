@@ -45,8 +45,8 @@ public class ColaboradorServiceImpl implements ColaboradorService {
             throw new IllegalStateException("Colaborador Não Encontrado");
         }
 
-        if(colaborador.getStatus() != null)
-           colab.setStatus(colaborador.getStatus());
+        if(colaborador.getCargaHorariaSemanal() != null)
+           colab.setCargaHorariaSemanal(colaborador.getCargaHorariaSemanal());
        if(colaborador.getLinkCurriculo() != null)
            colab.setLinkCurriculo(colaborador.getLinkCurriculo());
 

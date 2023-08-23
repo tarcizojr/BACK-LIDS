@@ -1,5 +1,5 @@
 package br.edu.ifpb.lids.presentation.control;
-import br.edu.ifpb.lids.model.enums.Status;
+import br.edu.ifpb.lids.model.enums.StatusAssociado;
 import br.edu.ifpb.lids.business.service.ColaboradorService;
 import br.edu.ifpb.lids.business.service.impl.ConverteService;
 import br.edu.ifpb.lids.model.entity.Colaborador;
@@ -32,7 +32,7 @@ public class ColaboradorController {
     public ResponseEntity create(@RequestBody ColaboradorDto dto) {
 
         try {
-            dto.setStatus(Status.INATIVO.toString());
+            dto.setStatus(StatusAssociado.INATIVO.toString());
             Colaborador entity = converteService.dtoToColaborador(dto);
 
             entity = colaboradorService.create(entity);
