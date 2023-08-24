@@ -82,12 +82,12 @@ public class ColaboradorServiceImpl implements ColaboradorService {
         if(id == null){
             throw new IllegalStateException("O ID é nulo.");
         }
-
         return colaboradorRepository.findById(id).get();
     }
 
     @Override
     public Colaborador findByMatricula(String matricula) {
+
         return colaboradorRepository.findByMatricula(matricula);
     }
 

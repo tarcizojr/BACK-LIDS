@@ -19,5 +19,4 @@ public class ColaboradorDto {
     private String estado;
     private String endereco;
 
-
 }
