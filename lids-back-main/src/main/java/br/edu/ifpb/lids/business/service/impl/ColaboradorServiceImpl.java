@@ -67,7 +67,7 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     public void delete(Long id) {
         Colaborador colab = findById(id);
         if(colab == null)
-            throw new IllegalStateException(String.format("Colaborador não encontrado para o id %d",id));
+            throw new IllegalStateException("Colaborador não encontrado");
         colaboradorRepository.deleteById(id);
     }
 

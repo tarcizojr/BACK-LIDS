@@ -62,7 +62,7 @@ public class ColaboradorController {
             colaboradorService.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(String.format("Colaborador não encontrado.",id));
+            return ResponseEntity.badRequest().body("Colaborador não encontrado.");
         }
     }
 
@@ -85,7 +85,7 @@ public class ColaboradorController {
             Colaborador resultado = colaboradorService.findById(id);
             return ResponseEntity.ok().body(resultado);
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(String.format("Colaborador não encontrado.",id));
+            return ResponseEntity.badRequest().body("Colaborador não encontrado.");
         }
     }
 }
