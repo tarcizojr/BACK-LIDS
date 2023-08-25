@@ -2,6 +2,7 @@ package br.edu.ifpb.lids.presentation.control;
 
 import br.edu.ifpb.lids.business.service.ProjetoService;
 import br.edu.ifpb.lids.business.service.impl.ConverteService;
+import br.edu.ifpb.lids.model.entity.Projeto;
 import br.edu.ifpb.lids.presentation.dto.ProjetoDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,9 @@ public class ProjetoController {
     public ResponseEntity create(@RequestBody ProjetoDto dto) {
 
         try {
-
+            Projeto entity = converteService.dtoToProjeto(dto);
+            entity = projetoService.create(entity);
+            dto = converteService.projetoToDto(entity);
             return new ResponseEntity(dto, HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

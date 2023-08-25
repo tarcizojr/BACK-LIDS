@@ -1,8 +1,8 @@
 package br.edu.ifpb.lids.presentation.dto;
 
-import br.edu.ifpb.lids.model.entity.Colaborador;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -16,12 +16,12 @@ public class ProjetoDto {
 
     private String descricao;
 
-    private String dataInicio;
+    private Date dataInicio;
 
-    private String dataTermino;
+    private Date dataTermino;
 
     private String status;
 
-    private List<Colaborador> colaboradores;
+    private List<ColaboradorDto> colaboradores;
 
 }

@@ -18,4 +18,6 @@ public interface ProjetoService {
 
     Projeto findById(Long id);
 
+    Projeto findByTitulo(String titulo);
+
 }
