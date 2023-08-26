@@ -29,13 +29,13 @@ public class ProjetoController {
 
     @ApiOperation(value = "Cadastra projeto")
     @PostMapping
-    public ResponseEntity create(@RequestBody ProjetoDto dto) {
+    public ResponseEntity create(@RequestBody ProjetoDto projeto) {
 
         try {
-            Projeto entity = converteService.dtoToProjeto(dto);
+            Projeto entity = converteService.dtoToProjeto(projeto);
             entity = projetoService.create(entity);
-            dto = converteService.projetoToDto(entity);
-            return new ResponseEntity(dto, HttpStatus.CREATED);
+            projeto = converteService.projetoToDto(entity);
+            return new ResponseEntity(projeto, HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

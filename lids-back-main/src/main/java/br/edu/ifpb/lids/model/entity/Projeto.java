@@ -3,7 +3,6 @@ package br.edu.ifpb.lids.model.entity;
 import br.edu.ifpb.lids.model.enums.StatusProjeto;
 import br.edu.ifpb.lids.model.enums.TipoProjeto;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -29,18 +28,18 @@ public class Projeto implements Serializable {
     @Size(min = 15,max = 256, message = "")
     private String titulo;
 
+    @Enumerated(EnumType.STRING)
     private TipoProjeto tipo;
 
     @NotBlank
     @Size(min = 30,max = 256, message = "")
     private String descricao;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dataInicio;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dataTermino;
 
+    @Enumerated(EnumType.STRING)
     private StatusProjeto status;
 
     @OneToMany
