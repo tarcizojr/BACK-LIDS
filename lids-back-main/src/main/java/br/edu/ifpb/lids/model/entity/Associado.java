@@ -7,13 +7,14 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Date;
 
 
 @MappedSuperclass
 @Data
 public abstract class Associado implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,17 +31,18 @@ public abstract class Associado implements Serializable {
     @Size(max = 12, message = "Tamanho máximo da matrícula é 12.")
     private String matricula;
 
-    @NotBlank
-    @Pattern(regexp = "\\d{2}/\\d{2}/\\d{4}", message = "Data deve ser no formato dd/mm/aaaa")
-    private String dataDeNascimento;
+//    @Pattern(regexp = "\\d{2}-\\d{2}-\\d{4}", message = "Data deve ser no formato dd-mm-aaaa")
+    private Date dataDeNascimento;
 
     @NotBlank
     @Email
     @Size(max = 100, message = "E-mail não pode ter tamanho maior que 100.")
     private String email;
 
+    @Enumerated(EnumType.STRING)
     private TipoAssociado tipo;
 
+    @Enumerated(EnumType.STRING)
     private StatusAssociado status;
 
     @Size(max = 50, message = "Cidade não pode ter tamanho maior que 50.")

@@ -32,7 +32,7 @@ public class ColaboradorController {
     public ResponseEntity create(@RequestBody ColaboradorDto dto) {
 
         try {
-            dto.setStatus(StatusAssociado.INATIVO.toString());
+            dto.setStatus(StatusAssociado.INATIVO);
             Colaborador entity = converteService.dtoToColaborador(dto);
 
             entity = colaboradorService.create(entity);
@@ -83,7 +83,7 @@ public class ColaboradorController {
 
         try {
             Colaborador resultado = colaboradorService.findById(id);
-            return ResponseEntity.ok().body(resultado);
+            return ResponseEntity.ok().body(mapper.map(resultado, ColaboradorDto.class));
         }catch (Exception e){
             return ResponseEntity.badRequest().body("Colaborador não encontrado.");
         }
