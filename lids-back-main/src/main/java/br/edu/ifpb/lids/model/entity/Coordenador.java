@@ -11,5 +11,4 @@ import javax.persistence.Table;
 @Table(name = "coordenador")
 public class Coordenador extends Associado {
 
-    private Float cargaHorariaSemanal;
 }

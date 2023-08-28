@@ -1,12 +1,8 @@
 package br.edu.ifpb.lids.model.entity;
 
-import br.edu.ifpb.lids.model.enums.Status;
-
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -15,10 +11,9 @@ import javax.validation.constraints.Size;
 @Data
 public class Colaborador extends Associado {
 
-    
-    private Status status;
-
-    @Size(max = 256)
+    @Size(max = 256, message = "Link não deve ter tamanho maior que 256.")
     private String linkCurriculo;
+
+    private Float cargaHorariaSemanal;
    
 }

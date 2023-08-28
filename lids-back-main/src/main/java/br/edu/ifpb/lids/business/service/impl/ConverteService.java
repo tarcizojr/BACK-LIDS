@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.lids.model.entity.Colaborador;
 import br.edu.ifpb.lids.model.entity.Coordenador;
-import br.edu.ifpb.lids.model.enums.Status;
+import br.edu.ifpb.lids.model.enums.StatusAssociado;
 import br.edu.ifpb.lids.presentation.dto.ColaboradorDto;
 import br.edu.ifpb.lids.presentation.dto.CoordenadorDto;
 
@@ -28,9 +28,9 @@ public class ConverteService {
 
         if(dto.getStatus() != null) {
             if (dto.getStatus().equals("INATIVO")) {
-                colaborador.setStatus(Status.INATIVO);
+                colaborador.setStatus(StatusAssociado.INATIVO);
             } else {
-                colaborador.setStatus(Status.ATIVO);
+                colaborador.setStatus(StatusAssociado.ATIVO);
             }
         }
         return colaborador;
