@@ -3,6 +3,8 @@ package br.edu.ifpb.lids.business.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.ifpb.lids.model.entity.Projeto;
+import br.edu.ifpb.lids.presentation.dto.ProjetoDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,4 +65,13 @@ public class ConverteService {
 		}
 		return dtos;
 	}
+
+    public ProjetoDto projetoToDto (Projeto projeto) {
+
+        return modelMapper.map(projeto, ProjetoDto.class);
+    }
+
+    public Projeto dtoToProjeto (ProjetoDto dto) {
+        return modelMapper.map(dto, Projeto.class);
+    }
 }
