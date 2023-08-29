@@ -79,9 +79,6 @@ public class TestCadastroColaborador {
 
         driver.findElement(By.cssSelector(".p-button-raised > .p-button-label")).click();
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("p-confirm-dialog-accept"))).click();
-
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("p-confirm-dialog-accept")));
         WebElement cardValid = driver.findElement(By.className("p-toast-summary"));
         assertEquals(cardValid.getText(), "Confirmado");
         timeSleep();
