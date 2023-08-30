@@ -4,6 +4,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Date;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,7 @@ public class TesteIntegraControllerColaborador {
         colaborador.setEstado("Paraiba");
         colaborador.setMatricula("202015020014");
         colaborador.setEndereco("Av.Cicero Marinho");
-    //    colaborador.setDataDeNascimento("09-04-2002");
+        colaborador.setDataDeNascimento(new Date());
         colaborador.setCargaHorariaSemanal(1F);
         colaborador.setLinkCurriculo("Link");
     }
