@@ -58,6 +58,13 @@ public class TestEditarColaborador {
         driver.findElement(By.cssSelector(".p-confirm-dialog-accept")).click();
         WebElement cardValid = driver.findElement(By.className("p-toast-summary"));
         assertEquals(cardValid.getText(), "Confirmado");
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        WebElement cardValidSucess = driver.findElement(By.className("p-toast-summary"));
+        assertEquals(cardValidSucess.getText(), "Sucesso");
         timeSleep();
 
 
