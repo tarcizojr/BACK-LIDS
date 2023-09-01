@@ -38,8 +38,8 @@ public class TestCadastroProjeto {
         driver.get("http://localhost:3000/");
         driver.manage().window().setSize(new Dimension(1920, 1080));
 
-        String urlListarColaboradores = driver.getCurrentUrl();
-        assertEquals(urlListarColaboradores, "http://localhost:3000/colaboradores");
+        String urlMenu= driver.getCurrentUrl();
+        assertEquals(urlMenu, "http://localhost:3000/");
 
         driver.findElement(By.cssSelector("a:nth-child(1) .p-button-label")).click();
 
@@ -49,10 +49,10 @@ public class TestCadastroProjeto {
         driver.findElement(By.cssSelector(".p-button-raised")).click();
 
         String urlCriarProjeto = driver.getCurrentUrl();
-        assertEquals(urlCriarProjeto, "http://localhost:3000/projetos");
+        assertEquals(urlCriarProjeto, "http://localhost:3000/criarProjeto");
 
         driver.findElement(By.id("nomeDoProjeto")).click();
-        driver.findElement(By.id("nomeDoProjeto")).sendKeys("Projeto Fenix");
+        driver.findElement(By.id("nomeDoProjeto")).sendKeys("Projeto Fenix 2.0");
         driver.findElement(By.cssSelector(".p-dropdown-trigger")).click();
         driver.findElement(By.cssSelector(".p-dropdown-item:nth-child(2)")).click();
         driver.findElement(By.id("objetivo")).click();
@@ -66,5 +66,39 @@ public class TestCadastroProjeto {
         WebElement cardValid = driver.findElement(By.className("p-toast-summary"));
         assertEquals(cardValid.getText(), "Confirmado");
 
+    }
+
+    @Test
+    public void cadastrodeProjetoComErro() {
+        driver.get("http://localhost:3000/");
+        driver.manage().window().setSize(new Dimension(1920, 1080));
+
+        String urlMenu= driver.getCurrentUrl();
+        assertEquals(urlMenu, "http://localhost:3000/");
+
+        driver.findElement(By.cssSelector("a:nth-child(1) .p-button-label")).click();
+
+        String urlListarProjeto = driver.getCurrentUrl();
+        assertEquals(urlListarProjeto, "http://localhost:3000/projetos");
+
+        driver.findElement(By.cssSelector(".p-button-raised")).click();
+
+        String urlCriarProjeto = driver.getCurrentUrl();
+        assertEquals(urlCriarProjeto, "http://localhost:3000/criarProjeto");
+
+        driver.findElement(By.cssSelector(".p-dropdown-trigger")).click();
+        driver.findElement(By.cssSelector(".p-dropdown-item:nth-child(2)")).click();
+        driver.findElement(By.id("objetivo")).click();
+        driver.findElement(By.id("objetivo")).sendKeys(
+                "Lorem ipsum dolor sit amet. A optio veritatis ut voluptatem galisum et maiores rerum et vero adipisci ut asperiores dolores. Sit laborum voluptatem ut molestiae tempora ad explicabo aliquam ut voluptate laboriosam.");
+        driver.findElement(By.id("dataInicio")).click();
+        driver.findElement(By.id("dataInicio")).sendKeys("09042020");
+        driver.findElement(By.id("dataFim")).click();
+        driver.findElement(By.id("dataFim")).sendKeys("09042023");
+        driver.findElement(By.cssSelector(".p-button-raised > .p-button-label")).click();
+        timeSleep();
+        WebElement cardValid = driver.findElement(By.className("p-toast-summary"));
+        assertEquals(cardValid.getText(), "Corrija os Erros a Baixo");
+  timeSleep();
     }
 }
