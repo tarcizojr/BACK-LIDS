@@ -2,6 +2,7 @@ package br.edu.ifpb.lids.business.service.impl;
 
 import br.edu.ifpb.lids.business.service.ColaboradorService;
 import br.edu.ifpb.lids.model.entity.Colaborador;
+import br.edu.ifpb.lids.model.enums.StatusAssociado;
 import br.edu.ifpb.lids.model.repository.ColaboradorRepository;
 
 import java.lang.reflect.Field;
@@ -31,6 +32,7 @@ public class ColaboradorServiceImpl implements ColaboradorService {
         if(findByMatricula(colaborador.getMatricula()) != null){
             throw new IllegalStateException("Colaborador já cadastrado.");
         }
+        colaborador.setStatus(StatusAssociado.INATIVO);
         return colaboradorRepository.save(colaborador);
     }
 

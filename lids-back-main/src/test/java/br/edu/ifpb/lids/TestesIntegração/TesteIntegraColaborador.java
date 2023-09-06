@@ -8,6 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.junit.Before;
@@ -45,7 +46,7 @@ public class TesteIntegraColaborador {
         colaborador.setEstado("Paraiba");
         colaborador.setMatricula("202015020014");
         colaborador.setEndereco("Av.Cicero Marinho");
-      //  colaborador.setDataDeNascimento("09-04-2002");
+        colaborador.setDataDeNascimento(new Date());
         colaborador.setCargaHorariaSemanal(1F);
         colaborador.setLinkCurriculo("Link");
     }
@@ -78,7 +79,6 @@ public class TesteIntegraColaborador {
         colaborador.setEstado("Pernambuco");
         colaborador.setMatricula("202015020015");
         colaborador.setEndereco("Av.Cicero ");
-     //   colaborador.setDataDeNascimento("09-03-2002");
         colaborador.setCargaHorariaSemanal(2F);
         colaborador.setLinkCurriculo("LinkLates");
 

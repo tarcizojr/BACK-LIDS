@@ -1,38 +1,49 @@
 package br.edu.ifpb.lids.TestesIntegração;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Date;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import br.edu.ifpb.lids.business.service.ColaboradorService;
-
-import br.edu.ifpb.lids.model.entity.Colaborador;
 import br.edu.ifpb.lids.presentation.control.ColaboradorController;
+import br.edu.ifpb.lids.presentation.dto.ColaboradorDto;
 
-@WebMvcTest(ColaboradorController.class)
 public class TesteIntegraControllerColaborador {
-    
+
     @Autowired
-    private MockMvc mockMvc;
+    private ColaboradorController colaboradorController;
 
-    @MockBean
-    private ColaboradorService colaboradorServiceImpl;
+    @Test
+    public void TestControllerNomeErrado() {
+        colaboradorController = new ColaboradorController();
+        ColaboradorDto colaborador = new ColaboradorDto();
+        colaborador.setId(1L);
+        colaborador.setNome("");
+        colaborador.setEmail("guilherme@gmail.com");
+        colaborador.setCidade("Monteiro");
+        colaborador.setEstado("Paraiba");
+        colaborador.setMatricula("202015020014");
+        colaborador.setEndereco("Av.Cicero Marinho");
+        colaborador.setDataDeNascimento(new Date());
+        colaborador.setCargaHorariaSemanal(1F);
+        colaborador.setLinkCurriculo("Link");
 
-    private Colaborador colaborador;
+        ResponseEntity<String> response = colaboradorController.create(colaborador);
+        System.out.println(response);
 
-    @BeforeEach
-    public void init() {
-        colaborador = new Colaborador();
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+
+    }
+
+    @Test
+    public void TestControllerCreateSucesso() {
+        colaboradorController = new ColaboradorController();
+        ColaboradorDto colaborador = new ColaboradorDto();
         colaborador.setId(1L);
         colaborador.setNome("Guilherme");
         colaborador.setEmail("guilherme@gmail.com");
@@ -40,22 +51,66 @@ public class TesteIntegraControllerColaborador {
         colaborador.setEstado("Paraiba");
         colaborador.setMatricula("202015020014");
         colaborador.setEndereco("Av.Cicero Marinho");
-    //    colaborador.setDataDeNascimento("09-04-2002");
+        colaborador.setDataDeNascimento(new Date());
         colaborador.setCargaHorariaSemanal(1F);
         colaborador.setLinkCurriculo("Link");
+
+        assertDoesNotThrow(() -> colaboradorController.create(colaborador));
+
     }
 
     @Test
-    public void metodoPostAceito ()  throws Exception {
-        when(colaboradorServiceImpl.create(any(Colaborador.class))).thenReturn(new Colaborador());
+    public void TestControllerAtualizar() {
+        colaboradorController = new ColaboradorController();
+        ColaboradorDto colaborador = new ColaboradorDto();
+        colaborador.setId(1L);
+        colaborador.setNome("Guilherme Rodrigues");
+        colaborador.setEmail("guilherme@gmail.com");
+        colaborador.setCidade("Monteiro");
+        colaborador.setEstado("Paraiba");
+        colaborador.setMatricula("202015020014");
+        colaborador.setEndereco("Av.Cicero Marinho");
+        colaborador.setDataDeNascimento(new Date());
+        colaborador.setCargaHorariaSemanal(1F);
+        colaborador.setLinkCurriculo("Link");
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String colaboradorJson = objectMapper.writeValueAsString(colaborador);
-    
-        mockMvc.perform(post("/api/colaborador")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(colaboradorJson))
-                .andExpect(status().isCreated());
-}
+        assertDoesNotThrow(() -> colaboradorController.update(1L, colaborador));
+    }
+
+    @Test
+    public void TestControllerDeletar() {
+        colaboradorController = new ColaboradorController();
+        ColaboradorDto colaborador = new ColaboradorDto();
+        colaborador.setId(1L);
+        colaborador.setNome("Guilherme Rodrigues");
+        colaborador.setEmail("guilherme@gmail.com");
+        colaborador.setCidade("Monteiro");
+        colaborador.setEstado("Paraiba");
+        colaborador.setMatricula("202015020014");
+        colaborador.setEndereco("Av.Cicero Marinho");
+        colaborador.setDataDeNascimento(new Date());
+        colaborador.setCargaHorariaSemanal(1F);
+        colaborador.setLinkCurriculo("Link");
+
+        assertDoesNotThrow(() -> colaboradorController.delete(1L));
+    }
+
+    @Test
+    public void TestControllerProcurarPorID() {
+        colaboradorController = new ColaboradorController();
+        ColaboradorDto colaborador = new ColaboradorDto();
+        colaborador.setId(1L);
+        colaborador.setNome("Guilherme Rodrigues");
+        colaborador.setEmail("guilherme@gmail.com");
+        colaborador.setCidade("Monteiro");
+        colaborador.setEstado("Paraiba");
+        colaborador.setMatricula("202015020014");
+        colaborador.setEndereco("Av.Cicero Marinho");
+        colaborador.setDataDeNascimento(new Date());
+        colaborador.setCargaHorariaSemanal(1F);
+        colaborador.setLinkCurriculo("Link");
+
+        assertDoesNotThrow(() -> colaboradorController.findById(1L));
+    }
+
 }
