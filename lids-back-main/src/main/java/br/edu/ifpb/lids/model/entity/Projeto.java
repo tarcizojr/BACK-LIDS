@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,10 @@ public class Projeto implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusProjeto status;
 
-    @OneToMany
-    private List<Colaborador> colaboradores;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "projeto_associado",
+        joinColumns = { @JoinColumn(name = "projeto_id") },
+        inverseJoinColumns = { @JoinColumn(name = "associado_id") })
+    private List<Colaborador> colaboradores = new ArrayList<>();
 
 }
