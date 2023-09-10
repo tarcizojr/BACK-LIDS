@@ -5,13 +5,13 @@ import br.edu.ifpb.lids.business.service.ProjetoService;
 import br.edu.ifpb.lids.business.service.impl.ConverteService;
 import br.edu.ifpb.lids.model.entity.Colaborador;
 import br.edu.ifpb.lids.model.entity.Projeto;
+import br.edu.ifpb.lids.model.enums.StatusAssociado;
 import br.edu.ifpb.lids.presentation.dto.AdicionaColaboradorRequest;
 import br.edu.ifpb.lids.presentation.dto.ColaboradorDto;
 import br.edu.ifpb.lids.presentation.dto.ProjetoDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -34,7 +34,7 @@ public class ProjetoController {
     private ProjetoService projetoService;
 
     @Autowired
-	private ModelMapper mapper;
+    private ModelMapper mapper;
 
     @Autowired
     private ColaboradorService colaboradorService;
@@ -53,67 +53,52 @@ public class ProjetoController {
         }
     }
 
-    private ProjetoDto mapToProjetorDto (Projeto projeto) {
+    private ProjetoDto mapToProjetorDto(Projeto projeto) {
         return mapper.map(projeto, ProjetoDto.class);
-    }
-
-    private ColaboradorDto mapToColaboradorDto (Colaborador colaborador) {
-        return mapper.map(colaborador, ColaboradorDto.class);
     }
 
     @ApiOperation(value = "Lista todos os projetos cadastrados.")
     @GetMapping("/all")
-    public ResponseEntity<?> findAll() throws Exception{
-        
-        //  List<ProjetoDto> dtos = projetoService.findAll().stream().map(this::mapToProjetorDto).toList();
-        List<Projeto> projetos = projetoService.findAll();
-        List<ProjetoDto> dtos = new ArrayList<>();
-        for (Projeto elemento : projetos) {
-            ProjetoDto dto = new ProjetoDto();
-            dto.setId(elemento.getId());
-            dto.setTitulo(elemento.getTitulo());
-            dto.setDescricao(elemento.getDescricao());
-            dto.setDataInicio(elemento.getDataInicio());
-            dto.setDataTermino(elemento.getDataTermino());
-            // List<ColaboradorDto> cDtos = new ArrayList<>();
+    public ResponseEntity<?> findAll() throws Exception {
 
-            // for(Colaborador c : elemento.getColaboradores()){
-            //     ColaboradorDto cDto = new ColaboradorDto();
-            //     cDto.setNome(c.getNome());
-            //     cDtos.add(cDto);
-            // }
-            
-          //  dto.setColaboradores(cDtos);
-            
-            dtos.add(dto);
+        List<ProjetoDto> dtos = projetoService.findAll().stream().map(this::mapToProjetorDto).toList();
+
+            return ResponseEntity.ok(dtos);
         }
-        return ResponseEntity.ok(dtos);
-    }
 
+    @ApiOperation(value = "Consulta projeto pelo id.")
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable("id") Long id) {
 
         try {
             Projeto resultado = projetoService.findById(id);
-            return ResponseEntity.ok(resultado);
+            return ResponseEntity.ok(mapper.map(resultado, ProjetoDto.class));
         }catch (Exception e){
             return ResponseEntity.badRequest().body("Projeto não encontrado.");
         }
     }
+    @ApiOperation(value = "Adiciona um colaborador no projeto.")
     @PostMapping("/addColaborador")
     public ResponseEntity addColaborador(@RequestBody AdicionaColaboradorRequest request) {
 
         try{
-            Colaborador colab = colaboradorService.findById(request.getIdPortador());
+            Colaborador colab = colaboradorService.findById(request.getIdColaborador());
             Projeto projeto = projetoService.findById(request.getIdProjeto());
 
             List<Colaborador> colaboradores = projeto.getColaboradores();
 
+            for(Colaborador colaborador: colaboradores){
+                if(colaborador.getId().equals(colab.getId())) {
+                    throw new IllegalStateException("Colaborador já cadastrado no projeto.");
+                }
+            }
+            colab.setStatus(StatusAssociado.ATIVO);
+            colaboradorService.update(colab.getId(), colab);
             colaboradores.add(colab);
 
-            projeto.setColaboradores(colaboradores);
+            projetoService.update(projeto.getId(), projeto);
 
-            return ResponseEntity.ok(projeto);
+            return ResponseEntity.ok().body(mapper.map(projeto, ProjetoDto.class));
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

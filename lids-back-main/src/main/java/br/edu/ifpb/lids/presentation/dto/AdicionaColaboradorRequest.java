@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class AdicionaColaboradorRequest {
 
-    private Long idPortador;
+    private Long idColaborador;
     private Long idProjeto;
 }

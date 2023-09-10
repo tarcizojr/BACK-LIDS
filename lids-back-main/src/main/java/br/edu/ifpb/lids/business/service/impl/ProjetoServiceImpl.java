@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 @Service
@@ -25,14 +26,28 @@ public class ProjetoServiceImpl implements ProjetoService {
         if(findByTitulo(projeto.getTitulo()) != null){
             throw new IllegalStateException("Projeto já cadastrado.");
         }
-       
-
         return projetoRepository.save(projeto);
     }
 
     @Override
     public Projeto update(Long id, Projeto projeto) {
-        Projeto projeto1 = findById(id);
+        Projeto proj;
+
+        try{
+            proj = findById(id);
+        } catch (Exception e){
+            throw new IllegalStateException("Projeto não encontrado.");
+        }
+
+        for(Field field: Projeto.class.getDeclaredFields()){
+            field.setAccessible(true);
+            try{
+                if(field.get(projeto) != null && !field.get(projeto).equals(field.get(proj)))
+                    field.set(proj, field.get(projeto));
+            } catch (IllegalAccessException e) {
+                logger.error("Falha ao verificar campos de alteração do colaborador.");
+            }
+        }
 
         return projetoRepository.save(projeto);
     }
