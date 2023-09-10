@@ -3,6 +3,7 @@ package br.edu.ifpb.lids.business.service.impl;
 import br.edu.ifpb.lids.business.service.ProjetoService;
 import br.edu.ifpb.lids.model.entity.Colaborador;
 import br.edu.ifpb.lids.model.entity.Projeto;
+import br.edu.ifpb.lids.model.enums.StatusProjeto;
 import br.edu.ifpb.lids.model.repository.ProjetoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,7 @@ public class ProjetoServiceImpl implements ProjetoService {
         if(findByTitulo(projeto.getTitulo()) != null){
             throw new IllegalStateException("Projeto já cadastrado.");
         }
+        projeto.setStatus(StatusProjeto.EM_ANDAMENTO);
         return projetoRepository.save(projeto);
     }
 
