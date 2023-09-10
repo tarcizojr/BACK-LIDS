@@ -43,7 +43,7 @@ public class Projeto implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusProjeto status;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "projeto_associado",
         joinColumns = { @JoinColumn(name = "projeto_id") },
         inverseJoinColumns = { @JoinColumn(name = "associado_id") })

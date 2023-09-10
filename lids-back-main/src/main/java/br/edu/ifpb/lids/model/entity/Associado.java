@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -61,7 +60,7 @@ public abstract class Associado implements Serializable {
     @Size(max = 120, message = "Endereço não pode ter tamanho maior que 120.")
     private String endereco;
 
-    @ManyToMany(fetch = FetchType.LAZY,
+    @ManyToMany(fetch = FetchType.EAGER,
       cascade = {
           CascadeType.PERSIST,
           CascadeType.MERGE

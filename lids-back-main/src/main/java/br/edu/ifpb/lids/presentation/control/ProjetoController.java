@@ -4,10 +4,9 @@ import br.edu.ifpb.lids.business.service.ColaboradorService;
 import br.edu.ifpb.lids.business.service.ProjetoService;
 import br.edu.ifpb.lids.business.service.impl.ConverteService;
 import br.edu.ifpb.lids.model.entity.Colaborador;
-import br.edu.ifpb.lids.model.entity.Coordenador;
 import br.edu.ifpb.lids.model.entity.Projeto;
+import br.edu.ifpb.lids.presentation.dto.AdicionaColaboradorRequest;
 import br.edu.ifpb.lids.presentation.dto.ColaboradorDto;
-import br.edu.ifpb.lids.presentation.dto.CoordenadorDto;
 import br.edu.ifpb.lids.presentation.dto.ProjetoDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,7 +20,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 @Api(value = "PROJETO")
 @CrossOrigin("*")
@@ -63,6 +61,7 @@ public class ProjetoController {
         return mapper.map(colaborador, ColaboradorDto.class);
     }
 
+    @ApiOperation(value = "Lista todos os projetos cadastrados.")
     @GetMapping("/all")
     public ResponseEntity<?> findAll() throws Exception{
         
@@ -96,10 +95,28 @@ public class ProjetoController {
 
         try {
             Projeto resultado = projetoService.findById(id);
-            return ResponseEntity.ok(resultado.getTitulo());
+            return ResponseEntity.ok(resultado);
         }catch (Exception e){
             return ResponseEntity.badRequest().body("Projeto não encontrado.");
         }
     }
+    @PostMapping("/addColaborador")
+    public ResponseEntity addColaborador(@RequestBody AdicionaColaboradorRequest request) {
 
+        try{
+            Colaborador colab = colaboradorService.findById(request.getIdPortador());
+            Projeto projeto = projetoService.findById(request.getIdProjeto());
+
+            List<Colaborador> colaboradores = projeto.getColaboradores();
+
+            colaboradores.add(colab);
+
+            projeto.setColaboradores(colaboradores);
+
+            return ResponseEntity.ok(projeto);
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
+    }
 }
