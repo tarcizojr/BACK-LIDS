@@ -9,8 +9,7 @@ import br.edu.ifpb.lids.model.enums.StatusAssociado;
 import br.edu.ifpb.lids.presentation.dto.AdicionaColaboradorRequest;
 import br.edu.ifpb.lids.presentation.dto.ColaboradorDto;
 import br.edu.ifpb.lids.presentation.dto.ProjetoDto;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+
 
 import java.util.List;
 
@@ -21,7 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-@Api(value = "PROJETO")
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/projeto")
@@ -39,7 +37,6 @@ public class ProjetoController {
     @Autowired
     private ColaboradorService colaboradorService;
 
-    @ApiOperation(value = "Cadastra projeto")
     @PostMapping
     public ResponseEntity create(@RequestBody ProjetoDto projeto) {
 
@@ -57,7 +54,7 @@ public class ProjetoController {
         return mapper.map(projeto, ProjetoDto.class);
     }
 
-    @ApiOperation(value = "Lista todos os projetos cadastrados.")
+
     @GetMapping("/all")
     public ResponseEntity<?> findAll() throws Exception {
 
@@ -66,7 +63,6 @@ public class ProjetoController {
             return ResponseEntity.ok(dtos);
         }
 
-    @ApiOperation(value = "Consulta projeto pelo id.")
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable("id") Long id) {
 
@@ -77,7 +73,7 @@ public class ProjetoController {
             return ResponseEntity.badRequest().body("Projeto não encontrado.");
         }
     }
-    @ApiOperation(value = "Adiciona um colaborador no projeto.")
+    
     @PostMapping("/addColaborador")
     public ResponseEntity addColaborador(@RequestBody AdicionaColaboradorRequest request) {
 

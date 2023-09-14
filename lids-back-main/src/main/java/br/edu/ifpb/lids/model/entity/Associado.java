@@ -2,10 +2,23 @@ package br.edu.ifpb.lids.model.entity;
 
 import br.edu.ifpb.lids.model.enums.StatusAssociado;
 import br.edu.ifpb.lids.model.enums.TipoAssociado;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -61,11 +74,13 @@ public abstract class Associado implements Serializable {
     private String endereco;
 
     @ManyToMany(fetch = FetchType.EAGER,
-      cascade = {
-          CascadeType.PERSIST,
-          CascadeType.MERGE
-      },
-      mappedBy = "colaboradores")
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+            })
+@JoinTable(name = "projeto_associado",
+           joinColumns = @JoinColumn(name = "idprojeto"),
+           inverseJoinColumns = @JoinColumn(name = "idassociado"))
   @JsonIgnore
   private List<Projeto> projeto = new ArrayList<>();
 }
