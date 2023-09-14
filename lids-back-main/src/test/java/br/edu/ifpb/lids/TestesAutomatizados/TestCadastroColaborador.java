@@ -43,7 +43,7 @@ public class TestCadastroColaborador {
     driver.get("http://localhost:3000/");
     driver.manage().window().setSize(new Dimension(1920, 1080));
 
-    WebDriverWait wait = new WebDriverWait(driver, 20);
+    // WebDriverWait wait = new WebDriverWait(driver, 20);
 
     driver.findElement(By.cssSelector("a:nth-child(2) .p-button-label")).click();
 
