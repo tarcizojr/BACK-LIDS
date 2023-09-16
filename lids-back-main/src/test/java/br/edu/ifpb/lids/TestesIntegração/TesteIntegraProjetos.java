@@ -85,8 +85,8 @@ public class TesteIntegraProjetos {
         when(projetoRepository.findById(anyLong())).thenReturn(Optional.of(projeto));
 
         projetoService.delete(1L);
-        verify(projetoRepository, times(1)).deleteById(eq(1L)); // Verifica se o método deleteById foi chamado uma vez com o argumento 1L
-        verify(projetoRepository, never()).save(any()); // Verifica se o método save nunca foi chamado
+        verify(projetoRepository, times(1)).deleteById(eq(1L));
+        verify(projetoRepository, never()).save(any()); 
     }
     
     @Test
