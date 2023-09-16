@@ -31,9 +31,9 @@ public class SecurityConfig {
               authorizeConfig.requestMatchers("/logout").permitAll();
               authorizeConfig.requestMatchers("/entrar/**").permitAll();
               authorizeConfig.requestMatchers("api/token").permitAll();
+              authorizeConfig.requestMatchers("api/altenticado").permitAll();
 
-              authorizeConfig.requestMatchers("/colaborador").permitAll();
-              authorizeConfig.requestMatchers("/projeto/**").permitAll();
+              
               authorizeConfig.anyRequest().authenticated();
             })
          .oauth2Login(Customizer.withDefaults())

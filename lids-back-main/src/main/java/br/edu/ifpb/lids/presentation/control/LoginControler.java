@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api")
-public class Teste {
+public class LoginControler {
 
 
 	public static String token = "";
@@ -30,5 +30,14 @@ public class Teste {
 	@GetMapping("/token")
 	String publicRoute2() {
 		return token;
+	}
+
+	@GetMapping("/altenticado")
+	boolean altenticado(){
+		if(!token.equals("")){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }
