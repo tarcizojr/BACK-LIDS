@@ -20,7 +20,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+<<<<<<< HEAD
+@CrossOrigin("*")
+=======
 
+>>>>>>> bcb8e1ac7003e58272067e4e584d028e47e37abb
 @RestController
 @RequestMapping("/api/projeto")
 public class ProjetoController {

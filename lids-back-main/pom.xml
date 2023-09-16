@@ -129,6 +129,8 @@
 		</dependency>
 
 
+<<<<<<< HEAD
+=======
 <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 <dependency>
     <groupId>javax.servlet</groupId>
@@ -136,6 +138,7 @@
     <version>4.0.1</version>
     <scope>provided</scope>
 </dependency>
+>>>>>>> bcb8e1ac7003e58272067e4e584d028e47e37abb
 
 
 
