@@ -15,7 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.core.Ordered;
 
 @Configuration
@@ -32,6 +31,7 @@ public class SecurityConfig {
               authorizeConfig.requestMatchers("/entrar/**").permitAll();
               authorizeConfig.requestMatchers("api/token").permitAll();
               authorizeConfig.requestMatchers("api/altenticado").permitAll();
+
 
               
               authorizeConfig.anyRequest().authenticated();
