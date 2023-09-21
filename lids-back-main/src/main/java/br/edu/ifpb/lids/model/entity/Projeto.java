@@ -12,18 +12,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -59,9 +55,9 @@ public class Projeto implements Serializable {
 
     @ManyToMany
     @JoinTable(
-        name = "projeto_associado",
+        name = "projeto_colaborador",
         joinColumns = @JoinColumn(name = "projeto_id"),
-        inverseJoinColumns = @JoinColumn(name = "associado_id")
+        inverseJoinColumns = @JoinColumn(name = "colaborador_id")
     )
     private List<Colaborador> colaboradores = new ArrayList<>();
 
