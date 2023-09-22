@@ -27,6 +27,9 @@ public class ProjetoServiceImpl implements ProjetoService {
         if(findByTitulo(projeto.getTitulo()) != null){
             throw new IllegalStateException("Projeto já cadastrado.");
         }
+        if(projeto.getDataInicio().after(projeto.getDataTermino())){
+            throw new IllegalStateException("Data de início não pode ser superior a data de término.");
+        }
         projeto.setStatus(StatusProjeto.EM_ANDAMENTO);
         return projetoRepository.save(projeto);
     }
