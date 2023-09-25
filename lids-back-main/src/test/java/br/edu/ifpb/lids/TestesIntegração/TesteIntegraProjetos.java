@@ -9,6 +9,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.junit.Before;
@@ -26,7 +27,7 @@ import br.edu.ifpb.lids.model.repository.ProjetoRepository;
 
 @DataJpaTest
 public class TesteIntegraProjetos {
-    
+
     @InjectMocks
     private ProjetoServiceImpl projetoService;
 
@@ -37,13 +38,15 @@ public class TesteIntegraProjetos {
 
     @Before
     public void init() {
-          MockitoAnnotations.initMocks(this);
-          projeto = new Projeto();
-          projeto.setId(1L);
-          projeto.setDescricao("Um projeto");
-          projeto.setStatus(StatusProjeto.CONCLUIDO);
-          projeto.setTitulo("Projeto 1");
-          projeto.setTipo(TipoProjeto.INOVACAO);
+        MockitoAnnotations.initMocks(this);
+        projeto = new Projeto();
+        projeto.setId(1L);
+        projeto.setDescricao("Um projeto");
+        projeto.setStatus(StatusProjeto.CONCLUIDO);
+        projeto.setTitulo("Projeto 1");
+        projeto.setTipo(TipoProjeto.INOVACAO);
+        projeto.setDataInicio(new Date());
+        projeto.setDataTermino(new Date());
 
     }
 
@@ -60,7 +63,6 @@ public class TesteIntegraProjetos {
 
     }
 
-    
     @Test
     public void atualizarProjeto() {
         when(projetoRepository.findById(anyLong())).thenReturn(Optional.of(projeto));
@@ -78,7 +80,8 @@ public class TesteIntegraProjetos {
         assertEquals(projeto.getTitulo(), projetoAtualizado.getTitulo());
         assertEquals(projeto.getTipo(), projetoAtualizado.getTipo());
 
-    }    
+    }
+
     @Test
     public void deletarProjeto() {
 
@@ -88,7 +91,7 @@ public class TesteIntegraProjetos {
         verify(projetoRepository, times(1)).deleteById(eq(1L));
         verify(projetoRepository, never()).save(any()); 
     }
-    
+
     @Test
     public void buscarProjeto() {
     when(projetoRepository.findById(1L)).thenReturn(Optional.of(projeto));
