@@ -8,6 +8,7 @@ import br.edu.ifpb.lids.model.entity.Projeto;
 import br.edu.ifpb.lids.model.enums.StatusAssociado;
 import br.edu.ifpb.lids.model.enums.StatusProjeto;
 import br.edu.ifpb.lids.presentation.dto.AdicionaColaboradorRequest;
+import br.edu.ifpb.lids.presentation.dto.ColaboradorDto;
 import br.edu.ifpb.lids.presentation.dto.ProjetoDto;
 
 
@@ -113,6 +114,20 @@ public class ProjetoController {
             return ResponseEntity.ok().body("O projeto foi cancelado.");
         }catch (Exception e){
             return ResponseEntity.badRequest().body("Projeto não encontrado.");
+        }
+    }
+
+
+    @PatchMapping("{id}")
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody ProjetoDto dto){
+        try {
+            dto.setId(id);
+            Projeto entity = converteService.dtoToProjeto(dto);
+            entity = projetoService.update(id,entity);
+            dto = converteService.projetoToDto(entity);
+            return ResponseEntity.ok(dto);
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
