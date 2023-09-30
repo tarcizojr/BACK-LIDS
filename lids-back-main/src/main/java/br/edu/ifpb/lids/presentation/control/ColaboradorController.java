@@ -35,7 +35,7 @@ public class ColaboradorController {
 
             entity = colaboradorService.create(entity);
             dto = converteService.colaboradorToDto(entity);
-
+        
             return new ResponseEntity(dto, HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -2,10 +2,19 @@ package br.edu.ifpb.lids.model.entity;
 
 import br.edu.ifpb.lids.model.enums.StatusAssociado;
 import br.edu.ifpb.lids.model.enums.TipoAssociado;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,17 +30,17 @@ public abstract class Associado implements Serializable {
     private Long id;
 
     @NotBlank
-    @Size(min = 5,max = 256, message = "Nome deve ter tamanho entre 5 e 255.")
+    @Size(min = 5, max = 256, message = "Nome deve ter tamanho entre 5 e 255.")
     private String nome;
 
-    @Size(min = 5 ,max = 50, message = "Usuário deve ter tamanho entre 5 e 50." )
+    @Size(min = 5, max = 50, message = "Usuário deve ter tamanho entre 5 e 50.")
     private String usuario;
 
     @NotBlank
     @Size(max = 12, message = "Tamanho máximo da matrícula é 12.")
     private String matricula;
 
-//    @Pattern(regexp = "\\d{2}-\\d{2}-\\d{4}", message = "Data deve ser no formato dd-mm-aaaa")
+    //    @Pattern(regexp = "\\d{2}-\\d{2}-\\d{4}", message = "Data deve ser no formato dd-mm-aaaa")
     private Date dataDeNascimento;
 
     @NotBlank
