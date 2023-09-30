@@ -117,8 +117,7 @@ public class ProjetoController {
         }
     }
 
-
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity update(@PathVariable("id") Long id, @RequestBody ProjetoDto dto){
         try {
             dto.setId(id);

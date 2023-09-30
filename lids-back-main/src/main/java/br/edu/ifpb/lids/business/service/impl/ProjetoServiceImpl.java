@@ -43,6 +43,7 @@ public class ProjetoServiceImpl implements ProjetoService {
         } catch (Exception e){
             throw new IllegalStateException("Projeto não encontrado.");
         }
+        List<Colaborador> colaboradors = proj.getColaboradores();
 
         for(Field field: Projeto.class.getDeclaredFields()){
             field.setAccessible(true);
@@ -53,6 +54,7 @@ public class ProjetoServiceImpl implements ProjetoService {
                 logger.error("Falha ao verificar campos de alteração do colaborador.");
             }
         }
+        projeto.setColaboradores(colaboradors);
 
         return projetoRepository.save(projeto);
     }
