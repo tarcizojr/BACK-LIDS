@@ -30,7 +30,9 @@ public class SecurityConfig {
               authorizeConfig.requestMatchers("/logout").permitAll();
               authorizeConfig.requestMatchers("/entrar/**").permitAll();
               authorizeConfig.requestMatchers("api/token").permitAll();
-              authorizeConfig.requestMatchers("api/altenticado").permitAll();
+              authorizeConfig.requestMatchers("api/autenticado").permitAll();
+              authorizeConfig.requestMatchers("api/sair").permitAll();
+              
 
 
               

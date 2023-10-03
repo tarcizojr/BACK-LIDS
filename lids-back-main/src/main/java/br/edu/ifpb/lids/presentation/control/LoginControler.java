@@ -44,7 +44,7 @@ public class LoginControler {
 	@GetMapping("/sair")
 	void sair(HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal OidcUser principal) throws IOException, ServletException {
 		request.logout();
-		response.sendRedirect("http://localhost:3000/");
+		response.sendRedirect("http://localhost:3000/login");
 		token = "";
 	}
 }
