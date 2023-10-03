@@ -3,6 +3,8 @@ package br.edu.ifpb.lids.presentation.control;
 
 import java.io.IOException;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +33,18 @@ public class LoginControler {
 		return token;
 	}
 
-	@GetMapping("/altenticado")
-	boolean altenticado(){
+	@GetMapping("/autenticado")
+	boolean autenticado(){
 		if(!token.equals("")){
 			return true;
 		}else{
 			return false;
 		}
+	}
+	@GetMapping("/sair")
+	void sair(HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal OidcUser principal) throws IOException, ServletException {
+		request.logout();
+		response.sendRedirect("http://localhost:3000/");
+		token = "";
 	}
 }
