@@ -3,17 +3,13 @@ package br.edu.ifpb.lids.business.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.ifpb.lids.model.entity.Projeto;
-import br.edu.ifpb.lids.presentation.dto.ProjetoDto;
+import br.edu.ifpb.lids.model.entity.*;
+import br.edu.ifpb.lids.presentation.dto.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.edu.ifpb.lids.model.entity.Colaborador;
-import br.edu.ifpb.lids.model.entity.Coordenador;
 import br.edu.ifpb.lids.model.enums.StatusAssociado;
-import br.edu.ifpb.lids.presentation.dto.ColaboradorDto;
-import br.edu.ifpb.lids.presentation.dto.CoordenadorDto;
 
 @Service
 public class ConverteService {
@@ -74,4 +70,21 @@ public class ConverteService {
     public Projeto dtoToProjeto (ProjetoDto dto) {
         return modelMapper.map(dto, Projeto.class);
     }
+
+    public EquipamentoDto equipamentoToDto(Equipamento equipamento){
+        return modelMapper.map(equipamento, EquipamentoDto.class);
+    }
+
+    public Equipamento dtoToEquipamento(EquipamentoDto dto){
+        return modelMapper.map(dto, Equipamento.class);
+    }
+
+    public ComputadorDto computadorToDto(Computador computador){
+        return modelMapper.map(computador, ComputadorDto.class);
+    }
+
+    public Computador dtoToComputador(ComputadorDto dto){
+        return modelMapper.map(dto, Computador.class);
+    }
+
 }
