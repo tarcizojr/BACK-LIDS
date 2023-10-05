@@ -1,9 +1,9 @@
 package br.edu.ifpb.lids.business.service.impl;
 
 import br.edu.ifpb.lids.business.service.EquipamentoService;
+import br.edu.ifpb.lids.business.service.ValidadorService;
 import br.edu.ifpb.lids.model.entity.Equipamento;
 import br.edu.ifpb.lids.model.repository.EquipamentoRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +15,12 @@ public class EquipamentoServiceImpl implements EquipamentoService {
     @Autowired
     private EquipamentoRepository equipamentoRepository;
 
-    private ModelMapper modelMapper;
+    @Autowired
+    private ValidadorService validadorService;
 
     @Override
     public Equipamento create(Equipamento equipamento) {
-        if(findByCodigo(equipamento.getCodigo()) != null){
+        if(!validadorService.isCodigoUnico(equipamento.getCodigo())){
             throw new IllegalStateException("Equipamento já cadastrado.");
         }
         return equipamentoRepository.save(equipamento);
@@ -37,7 +38,7 @@ public class EquipamentoServiceImpl implements EquipamentoService {
 
     @Override
     public List<Equipamento> findAll() {
-        return null;
+        return equipamentoRepository.findAll();
     }
 
     @Override

@@ -8,10 +8,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/equipamento")
@@ -39,6 +38,18 @@ public class EquipamentoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("/all")
+    public ResponseEntity findAll() throws Exception{
+        List<EquipamentoDto> dtos = equipamentoService.findAll().stream().map(this::mapToEquipamentoDto).toList();
+
+        return ResponseEntity.ok(dtos);
+    }
+
+    private EquipamentoDto mapToEquipamentoDto(Equipamento equipamento){
+        return mapper.map(equipamento, EquipamentoDto.class);
+    }
+
 
 
 

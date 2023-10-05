@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class ComputadorDto {
 
+    private Long id;
     private Integer codigo;
     private String nome;
     private String descricao;

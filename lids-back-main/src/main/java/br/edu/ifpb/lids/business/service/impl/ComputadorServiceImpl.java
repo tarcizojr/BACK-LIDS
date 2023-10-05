@@ -1,10 +1,9 @@
 package br.edu.ifpb.lids.business.service.impl;
 
 import br.edu.ifpb.lids.business.service.ComputadorService;
+import br.edu.ifpb.lids.business.service.ValidadorService;
 import br.edu.ifpb.lids.model.entity.Computador;
 import br.edu.ifpb.lids.model.repository.ComputadorRepository;
-import br.edu.ifpb.lids.model.repository.EquipamentoRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +16,15 @@ public class ComputadorServiceImpl implements ComputadorService {
     private ComputadorRepository computadorRepository;
 
     @Autowired
-    private EquipamentoRepository equipamentoRepository;
+    private ValidadorService validadorService;
 
-    private ModelMapper modelMapper;
 
     @Override
     public Computador create(Computador computador) {
-        if(findByCodigo(computador.getCodigo()) != null){
-            throw new IllegalStateException("Computador já cadastrado.");
+        if(!validadorService.isCodigoUnico(computador.getCodigo())){
+            throw new IllegalStateException("Equipamento já cadastrado.");
         }
-        return equipamentoRepository.save(computador);
+        return computadorRepository.save(computador);
     }
 
     @Override
@@ -36,12 +34,11 @@ public class ComputadorServiceImpl implements ComputadorService {
 
     @Override
     public void delete(Long id) {
-
     }
 
     @Override
     public List<Computador> findAll() {
-        return null;
+        return computadorRepository.findAll();
     }
 
     @Override
