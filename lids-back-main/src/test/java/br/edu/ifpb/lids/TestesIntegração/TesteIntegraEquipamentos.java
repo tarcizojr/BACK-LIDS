@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -21,7 +22,7 @@ import br.edu.ifpb.lids.model.repository.EquipamentoRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TesteIntegraEquipamentos {
-     @Mock
+    @Mock
     private EquipamentoRepository equipamentoRepository;
 
     @InjectMocks
@@ -45,64 +46,36 @@ public class TesteIntegraEquipamentos {
         assertEquals(equipamento.getDescricao(), equipamentoSalvo.getDescricao());
     }
 
-//    @Test
-//     public void testUpdateEquipamento() {
-//         Long equipamentoId = 1L;
-//         Equipamento equipamento = new Equipamento();
-//         equipamento.setId(equipamentoId);
-//         equipamento.setCodigo(1001);
-//         equipamento.setNome("Equipamento Teste");
-//         equipamento.setDescricao("Descrição do Equipamento Teste");
+    @Test
+    public void testFindAllEquipamentos() {
+        List<Equipamento> equipamentos = new ArrayList<>();
+        equipamentos.add(new Equipamento());
+        equipamentos.add(new Equipamento());
 
-//         when(equipamentoRepository.findById(equipamentoId)).thenReturn(Optional.of(equipamento));
-//         when(equipamentoRepository.save(equipamento)).thenReturn(equipamento);
+        when(equipamentoRepository.findAll()).thenReturn(equipamentos);
 
-//         Equipamento equipamentoAtualizado = equipamentoService.update(equipamentoId, equipamento);
+        List<Equipamento> equipamentosEncontrados = equipamentoService.findAll();
 
-//         assertNotNull(equipamentoAtualizado);
-//         assertEquals(equipamento.getId(), equipamentoAtualizado.getId());
-//         assertEquals(equipamento.getNome(), equipamentoAtualizado.getNome());
-//         assertEquals(equipamento.getDescricao(), equipamentoAtualizado.getDescricao());
-//     }
+        assertEquals(equipamentos.size(), equipamentosEncontrados.size());
+    }
 
-//     @Test
-//     public void testDeleteEquipamento() {
-//         Long equipamentoId = 1L;
 
-//         equipamentoService.delete(equipamentoId);
+    @Test
+    public void testFindEquipamentoByCodigo() {
+        Integer equipamentoCodigo = 1001;
+        Equipamento equipamento = new Equipamento();
+        equipamento.setId(1L);
+        equipamento.setCodigo(equipamentoCodigo);
+        equipamento.setNome("Equipamento Teste");
+        equipamento.setDescricao("Descrição do Equipamento Teste");
 
-//         verify(equipamentoRepository, times(1)).deleteById(equipamentoId);
-//     }
+        when(equipamentoRepository.findByCodigo(equipamentoCodigo)).thenReturn(equipamento);
 
-//     @Test
-//     public void testFindAllEquipamentos() {
-//         List<Equipamento> equipamentos = new ArrayList<>();
-//         equipamentos.add(new Equipamento());
-//         equipamentos.add(new Equipamento());
+        Equipamento equipamentoEncontrado = equipamentoService.findByCodigo(equipamentoCodigo);
 
-//         when(equipamentoRepository.findAll()).thenReturn(equipamentos);
-
-//         List<Equipamento> equipamentosEncontrados = equipamentoService.findAll();
-
-//         assertEquals(equipamentos.size(), equipamentosEncontrados.size());
-//     }
-
-//     @Test
-//     public void testFindEquipamentoById() {
-//         Long equipamentoId = 1L;
-//         Equipamento equipamento = new Equipamento();
-//         equipamento.setId(equipamentoId);
-//         equipamento.setCodigo(1001);
-//         equipamento.setNome("Equipamento Teste");
-//         equipamento.setDescricao("Descrição do Equipamento Teste");
-
-//         when(equipamentoRepository.findById(equipamentoId)).thenReturn(Optional.of(equipamento));
-
-//         Equipamento equipamentoEncontrado = equipamentoService.findById(equipamentoId);
-
-//         assertNotNull(equipamentoEncontrado);
-//         assertEquals(equipamento.getId(), equipamentoEncontrado.getId());
-//         assertEquals(equipamento.getNome(), equipamentoEncontrado.getNome());
-//         assertEquals(equipamento.getDescricao(), equipamentoEncontrado.getDescricao());
-//     }
+        assertNotNull(equipamentoEncontrado);
+        assertEquals(equipamento.getId(), equipamentoEncontrado.getId());
+        assertEquals(equipamento.getNome(), equipamentoEncontrado.getNome());
+        assertEquals(equipamento.getDescricao(), equipamentoEncontrado.getDescricao());
+    }
 }

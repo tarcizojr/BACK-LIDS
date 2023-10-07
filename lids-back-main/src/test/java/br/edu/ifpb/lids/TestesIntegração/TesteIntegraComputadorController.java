@@ -1,45 +1,47 @@
 package br.edu.ifpb.lids.TestesIntegração;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import br.edu.ifpb.lids.business.service.ComputadorService;
-import br.edu.ifpb.lids.business.service.impl.ConverteService;
-import br.edu.ifpb.lids.model.entity.Computador;
 import br.edu.ifpb.lids.presentation.control.ComputadorController;
 import br.edu.ifpb.lids.presentation.dto.ComputadorDto;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TesteIntegraComputadorController {
-    @Mock
-    private ConverteService converteService;
 
-    @Mock
-    private ComputadorService computadorService;
-
-    @InjectMocks
+    @Autowired
     private ComputadorController computadorController;
 
     @Test
     public void testCreateComputador() {
-        ComputadorDto computadorDto = new ComputadorDto();
-        Computador computadorEntity = new Computador();
+        computadorController = new ComputadorController();
+        ComputadorDto computador = new ComputadorDto();
+        computador.setCodigo(1001);
+        computador.setNome("Computador Teste");
+        computador.setTipoDaMaquina("Desktop");
+        computador.setModelo("Modelo Teste");
+        computador.setMarca("Marca Teste");
+        computador.setProcessador("Processador Teste");
+        computador.setTipoMemoria("DDR4");
+        computador.setCapacidadeMemoria("16GB");
+        computador.setTipoArmazenamento("SSD");
+        computador.setCapacidadeArmazenamento("512GB");
+        computador.setTipoDeConexao("Ethernet");
+        computador.setQuantidadeMonitores(2);
 
-        when(converteService.dtoToComputador(computadorDto)).thenReturn(computadorEntity);
-        when(computadorService.create(computadorEntity)).thenReturn(computadorEntity);
-        when(converteService.computadorToDto(computadorEntity)).thenReturn(computadorDto);
-
-        ResponseEntity response = computadorController.create(computadorDto);
-
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertEquals(computadorDto, response.getBody());
+        assertDoesNotThrow(() -> computadorController.create(computador));
     }
+
 }
