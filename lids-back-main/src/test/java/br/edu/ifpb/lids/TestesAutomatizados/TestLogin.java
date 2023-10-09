@@ -36,9 +36,10 @@ public class TestLogin {
     public void login() {
         driver.get("http://localhost:3000/login");
         driver.manage().window().setSize(new Dimension(1936, 1066));
+        timeSleep();
         driver.findElement(By.cssSelector(".p-button-warning > .p-button-label")).click();
         String urlMenu = driver.getCurrentUrl();
-
+        timeSleep();
         assertNotEquals(urlMenu, "http://localhost:3000/");
     }
 

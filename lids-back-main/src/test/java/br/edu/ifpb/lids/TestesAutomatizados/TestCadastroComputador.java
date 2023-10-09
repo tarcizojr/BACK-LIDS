@@ -79,7 +79,7 @@ public class TestCadastroComputador {
         timeSleep();
         driver.findElement(By.cssSelector(".p-button-raised > .p-button-label")).click();
         timeSleep();
-               {
+        {
             WebElement element = driver.findElement(By.cssSelector(".p-button-raised > .p-button-label"));
             Actions builder = new Actions(driver);
             builder.moveToElement(element).perform();

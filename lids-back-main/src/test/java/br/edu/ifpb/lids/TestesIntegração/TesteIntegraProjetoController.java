@@ -47,23 +47,17 @@ public class TesteIntegraProjetoController {
         projeto.setStatus(StatusProjeto.EM_ANDAMENTO);
         projeto.setTipo(TipoProjeto.INOVACAO);
 
-        ColaboradorDto colaborador = new ColaboradorDto();
-        colaborador.setId(1L);
-        colaborador.setNome("Guilherme Rodrigues");
-        colaborador.setEmail("guilherme@gmail.com");
-        colaborador.setCidade("Monteiro");
-        colaborador.setEstado("Paraiba");
-        colaborador.setMatricula("202015020014");
-        colaborador.setEndereco("Av.Cicero Marinho");
-        colaborador.setDataDeNascimento(new Date());
-        colaborador.setCargaHorariaSemanal(1F);
-        colaborador.setLinkCurriculo("Link");
+        ProjetoDto projeto2 = new ProjetoDto();
+        projeto2.setId(1L);
+        projeto2.setTitulo("Projeto 2");
+        projeto2.setDataInicio(new Date());
+        projeto2.setDataTermino(new Date());
+        projeto2.setDescricao("Uma descrição bem especifica");
+        projeto2.setStatus(StatusProjeto.EM_ANDAMENTO);
+        projeto2.setTipo(TipoProjeto.EXTENSAO);
 
-        AdicionaColaboradorRequest adicionaColaboradorRequest = new AdicionaColaboradorRequest();
-        adicionaColaboradorRequest.setIdColaborador(1L);
-        adicionaColaboradorRequest.setIdProjeto(1L);
-
-        assertDoesNotThrow(() -> projetoController.addColaborador(adicionaColaboradorRequest));
+        projetoController.create(projeto);
+        assertDoesNotThrow(() -> projetoController.update(1L, projeto2));
     }
 
     @Test
