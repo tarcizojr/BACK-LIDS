@@ -47,7 +47,7 @@ public class TestEditarProjeto {
       timeSleep();
     driver.findElement(By.cssSelector(".p-button:nth-child(1) > svg")).click();
     driver.findElement(By.id("nomeDoProjeto")).click();
-    driver.findElement(By.id("nomeDoProjeto")).sendKeys("Projeto Fenix 4.0");
+    driver.findElement(By.id("nomeDoProjeto")).sendKeys("2.0");
     driver.findElement(By.cssSelector(".p-button-raised > .p-button-label")).click();
     driver.findElement(By.cssSelector(".p-confirm-dialog-accept")).click();
     timeSleep();

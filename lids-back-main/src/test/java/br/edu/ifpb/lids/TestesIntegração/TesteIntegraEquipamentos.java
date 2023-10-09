@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import br.edu.ifpb.lids.business.service.ValidadorService;
 import br.edu.ifpb.lids.business.service.impl.EquipamentoServiceImpl;
 import br.edu.ifpb.lids.model.entity.Equipamento;
 import br.edu.ifpb.lids.model.repository.EquipamentoRepository;
@@ -21,6 +22,9 @@ import br.edu.ifpb.lids.model.repository.EquipamentoRepository;
 public class TesteIntegraEquipamentos {
     @Mock
     private EquipamentoRepository equipamentoRepository;
+
+    @Mock
+    private ValidadorService validadorService; 
 
     @InjectMocks
     private EquipamentoServiceImpl equipamentoService;
@@ -32,6 +36,7 @@ public class TesteIntegraEquipamentos {
         equipamento.setNome("Equipamento Teste");
         equipamento.setDescricao("Descrição do Equipamento Teste");
 
+        when(validadorService.isCodigoUnico(1001)).thenReturn(true);
         when(equipamentoRepository.findByCodigo(1001)).thenReturn(null);
         when(equipamentoRepository.save(equipamento)).thenReturn(equipamento);
 
