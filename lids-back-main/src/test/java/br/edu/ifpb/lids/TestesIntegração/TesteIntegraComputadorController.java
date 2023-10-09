@@ -1,20 +1,12 @@
 package br.edu.ifpb.lids.TestesIntegração;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.edu.ifpb.lids.business.service.ComputadorService;
 import br.edu.ifpb.lids.presentation.control.ComputadorController;
 import br.edu.ifpb.lids.presentation.dto.ComputadorDto;
 

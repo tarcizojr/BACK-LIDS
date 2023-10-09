@@ -38,16 +38,16 @@ public class TestCadastroProjeto {
         driver.get("http://localhost:3000/");
         driver.manage().window().setSize(new Dimension(1920, 1080));
 
-        String urlMenu= driver.getCurrentUrl();
+        String urlMenu = driver.getCurrentUrl();
         assertEquals(urlMenu, "http://localhost:3000/");
 
         driver.findElement(By.cssSelector("a:nth-child(1) .p-button-label")).click();
 
         String urlListarProjeto = driver.getCurrentUrl();
         assertEquals(urlListarProjeto, "http://localhost:3000/projetos");
-timeSleep();
-driver.findElement(By.cssSelector(".p-button-raised:nth-child(1)")).click();
-timeSleep();
+        timeSleep();
+        driver.findElement(By.cssSelector(".p-button-raised:nth-child(1)")).click();
+        timeSleep();
         String urlCriarProjeto = driver.getCurrentUrl();
         assertEquals(urlCriarProjeto, "http://localhost:3000/criarProjeto");
 
@@ -70,7 +70,7 @@ timeSleep();
         driver.get("http://localhost:3000/");
         driver.manage().window().setSize(new Dimension(1920, 1080));
 
-        String urlMenu= driver.getCurrentUrl();
+        String urlMenu = driver.getCurrentUrl();
         assertEquals(urlMenu, "http://localhost:3000/");
 
         driver.findElement(By.cssSelector("a:nth-child(1) .p-button-label")).click();
@@ -96,6 +96,6 @@ timeSleep();
         timeSleep();
         WebElement cardValid = driver.findElement(By.className("p-toast-summary"));
         assertEquals(cardValid.getText(), "Corrija os Erros a Baixo");
-  timeSleep();
+        timeSleep();
     }
 }
