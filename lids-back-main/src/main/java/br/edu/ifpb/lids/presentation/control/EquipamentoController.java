@@ -39,6 +39,21 @@ public class EquipamentoController {
         }
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody EquipamentoDto dto){
+        try{
+            dto.setId(id);
+            Equipamento entity = converteService.dtoToEquipamento(dto);
+            entity = equipamentoService.update(id, entity);
+            dto = converteService.equipamentoToDto(entity);
+
+            return ResponseEntity.ok(dto);
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
     @GetMapping("/all")
     public ResponseEntity findAll() throws Exception{
         List<EquipamentoDto> dtos = equipamentoService.findAll().stream().map(this::mapToEquipamentoDto).toList();

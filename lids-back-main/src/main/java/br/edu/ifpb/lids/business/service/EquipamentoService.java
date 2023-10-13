@@ -9,7 +9,6 @@ import java.util.List;
 public interface EquipamentoService {
 
     Equipamento create(Equipamento equipamento);
-
     Equipamento update(Long id, Equipamento equipamento);
     void delete(Long id);
     List<Equipamento> findAll();

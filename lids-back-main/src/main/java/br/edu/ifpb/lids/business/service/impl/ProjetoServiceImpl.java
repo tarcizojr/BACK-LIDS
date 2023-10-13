@@ -51,7 +51,7 @@ public class ProjetoServiceImpl implements ProjetoService {
                 if(field.get(projeto) != null && !field.get(projeto).equals(field.get(proj)))
                     field.set(proj, field.get(projeto));
             } catch (IllegalAccessException e) {
-                logger.error("Falha ao verificar campos de alteração do colaborador.");
+                logger.error("Falha ao verificar campos de alteração do projeto.");
             }
         }
         projeto.setColaboradores(colaboradors);
