@@ -40,12 +40,12 @@ public class EquipamentoServiceImpl implements EquipamentoService {
         }catch (Exception e){
             throw new IllegalStateException("Equipamento não encontrado.");
         }
-        if(!validadorService.isCodigoUnico(equipa.getCodigo())){
+        if(!validadorService.isCodigoUnico(equipamento.getCodigo())){
             throw new IllegalStateException("Código já cadastrado.");
         }
 
         for (Field field: Equipamento.class.getDeclaredFields()){
-//            field.setAccessible(true);
+            field.setAccessible(true);
             try{
                 if(field.get(equipamento) != null && !field.get(equipamento).equals(field.get(equipa)))
                     field.set(equipa, field.get(equipamento));

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ColaboradorServiceImpl implements ColaboradorService {
-    
+
     @Autowired
     private ColaboradorRepository colaboradorRepository;
 
@@ -26,10 +26,9 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     private final Logger logger = LoggerFactory.getLogger(ColaboradorServiceImpl.class);
 
 
-
     @Override
     public Colaborador create(Colaborador colaborador) {
-        if(findByMatricula(colaborador.getMatricula()) != null){
+        if (findByMatricula(colaborador.getMatricula()) != null) {
             throw new IllegalStateException("Colaborador já cadastrado.");
         }
         colaborador.setStatus(StatusAssociado.INATIVO);
@@ -47,28 +46,28 @@ public class ColaboradorServiceImpl implements ColaboradorService {
             throw new IllegalStateException("Colaborador Não Encontrado");
         }
 
-        if(colaborador.getCargaHorariaSemanal() != null)
-           colab.setCargaHorariaSemanal(colaborador.getCargaHorariaSemanal());
-       if(colaborador.getLinkCurriculo() != null)
-           colab.setLinkCurriculo(colaborador.getLinkCurriculo());
+        if (colaborador.getCargaHorariaSemanal() != null)
+            colab.setCargaHorariaSemanal(colaborador.getCargaHorariaSemanal());
+        if (colaborador.getLinkCurriculo() != null)
+            colab.setLinkCurriculo(colaborador.getLinkCurriculo());
 
-        for(Field field: Colaborador.class.getSuperclass().getDeclaredFields()){
+        for (Field field : Colaborador.class.getSuperclass().getDeclaredFields()) {
             field.setAccessible(true);
-            try{
-                if(field.get(colaborador) != null && !field.get(colaborador).equals(field.get(colab)))
+            try {
+                if (field.get(colaborador) != null && !field.get(colaborador).equals(field.get(colab)))
                     field.set(colab, field.get(colaborador));
             } catch (IllegalAccessException e) {
                 logger.error("Falha ao verificar campos de alteração do colaborador.");
             }
         }
 
-       return colaboradorRepository.save(colab);
+        return colaboradorRepository.save(colab);
     }
 
     @Override
     public void delete(Long id) {
         Colaborador colab = findById(id);
-        if(colab == null)
+        if (colab == null)
             throw new IllegalStateException("Colaborador não encontrado");
         colaboradorRepository.deleteById(id);
     }
@@ -81,7 +80,7 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     @Override
     public Colaborador findById(Long id) {
 
-        if(id == null){
+        if (id == null) {
             throw new IllegalStateException("O ID é nulo.");
         }
         return colaboradorRepository.findById(id).get();
