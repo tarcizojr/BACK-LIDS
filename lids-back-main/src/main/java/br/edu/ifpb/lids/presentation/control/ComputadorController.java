@@ -64,6 +64,15 @@ public class ComputadorController {
         return mapper.map(computador, ComputadorDto.class);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable("id") Long id){
+        try{
+            computadorService.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body("Computador não encontrado.");
+        }
+    }
 
 
 

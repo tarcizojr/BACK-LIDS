@@ -58,7 +58,11 @@ public class EquipamentoServiceImpl implements EquipamentoService {
 
     @Override
     public void delete(Long id) {
-
+        Equipamento equip = findById(id);
+        if(equip == null){
+            throw new IllegalStateException("Equipamento não encontrado");
+        }
+        equipamentoRepository.deleteById(id);
     }
 
     @Override

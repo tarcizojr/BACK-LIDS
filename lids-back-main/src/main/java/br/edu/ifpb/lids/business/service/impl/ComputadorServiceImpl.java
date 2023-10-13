@@ -67,6 +67,11 @@ public class ComputadorServiceImpl implements ComputadorService {
 
     @Override
     public void delete(Long id) {
+        Computador comp = findById(id);
+        if(comp == null){
+            throw new IllegalStateException("Computador não encontrado");
+        }
+        computadorRepository.deleteById(id);
     }
 
     @Override
