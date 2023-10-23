@@ -2,10 +2,14 @@ package br.edu.ifpb.lids.TestesIntegração;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -80,4 +84,37 @@ public class TesteIntegraEquipamentos {
         assertEquals(equipamento.getNome(), equipamentoEncontrado.getNome());
         assertEquals(equipamento.getDescricao(), equipamentoEncontrado.getDescricao());
     }
+
+    @Test
+    public void testDeleteEquipamento() {
+        Long equipamentoId = 1L;
+        Equipamento equipamento = new Equipamento();
+        equipamento.setId(equipamentoId);
+        equipamento.setCodigo(1001);
+        equipamento.setNome("Equipamento Teste");
+        equipamento.setDescricao("Descrição do Equipamento Teste");
+
+        when(equipamentoRepository.findById(equipamentoId)).thenReturn(Optional.of(equipamento));
+
+        equipamentoService.delete(equipamentoId);
+
+        verify(equipamentoRepository, times(1)).deleteById(equipamentoId);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testUpdateEquipamento() {
+        Equipamento equipamento = new Equipamento();
+        equipamento.setId(1L);
+        equipamento.setCodigo(1001);
+
+        when(equipamentoRepository.findByCodigo(1001)).thenReturn(new Equipamento());
+        when(equipamentoRepository.findById(1L)).thenReturn(Optional.of(equipamento));
+
+        Equipamento equipamentoAtualizado = new Equipamento();
+        equipamentoAtualizado.setId(1L);
+        equipamentoAtualizado.setCodigo(1001); 
+
+        equipamentoService.update(1L, equipamentoAtualizado);
+    }
+
 }
