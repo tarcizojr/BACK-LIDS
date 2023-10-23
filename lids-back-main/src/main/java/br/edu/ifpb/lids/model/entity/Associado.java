@@ -16,8 +16,7 @@ import lombok.Data;
 
 
 import java.io.Serializable;
-import java.util.Date;
-
+import java.time.LocalDate;
 
 @MappedSuperclass
 @Data
@@ -41,7 +40,7 @@ public abstract class Associado implements Serializable {
     private String matricula;
 
     //    @Pattern(regexp = "\\d{2}-\\d{2}-\\d{4}", message = "Data deve ser no formato dd-mm-aaaa")
-    private Date dataDeNascimento;
+    private LocalDate dataDeNascimento;
 
     @NotBlank
     @Email

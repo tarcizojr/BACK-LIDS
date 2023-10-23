@@ -5,7 +5,7 @@ import br.edu.ifpb.lids.model.enums.TipoAssociado;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class ColaboradorDto {
@@ -19,7 +19,7 @@ public class ColaboradorDto {
     private String matricula;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date dataDeNascimento;
+    private LocalDate dataDeNascimento;
 
     private String email;
 
