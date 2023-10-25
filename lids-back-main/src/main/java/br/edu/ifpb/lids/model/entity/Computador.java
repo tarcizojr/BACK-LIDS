@@ -13,39 +13,39 @@ import lombok.Data;
 public class Computador extends Equipamento{
 
     @NotBlank
-    @Size(min = 2, max = 30, message = "Campo deve ter tamanho entre 5 e 30.")
+    @Size(min = 2, max = 30, message = "Campo deve ter tamanho entre 2 e 30.")
     private String tipoDaMaquina;
 
     @NotBlank
-    @Size(min = 2, max = 30, message = "Campo deve ter tamanho entre 5 e 30.")
+    @Size(min = 2, max = 30, message = "Campo deve ter tamanho entre 2 e 30.")
     private String modelo;
 
     @NotBlank
-    @Size(min = 2, max = 30, message = "Campo deve ter tamanho entre 5 e 30.")
+    @Size(min = 2, max = 30, message = "Campo deve ter tamanho entre 2 e 30.")
     private String marca;
 
     @NotBlank
-    @Size(min = 2, max = 30, message = "Campo deve ter tamanho entre 5 e 30.")
+    @Size(min = 2, max = 30, message = "Campo deve ter tamanho entre 2 e 30.")
     private String processador;
 
     @NotBlank
-    @Size(min = 2, max = 30, message = "Campo deve ter tamanho entre 5 e 30.")
+    @Size(min = 2, max = 30, message = "Campo deve ter tamanho entre 2 e 30.")
     private String tipoMemoria;
 
     @NotBlank
-    @Size(min = 2, max = 30, message = "Campo capacidadeMemoria deve ter tamanho entre 5 e 30.")
+    @Size(min = 1, max = 30, message = "Campo capacidadeMemoria deve ter tamanho entre 1 e 30.")
     private String capacidadeMemoria;
 
     @NotBlank
-    @Size(min = 2, max = 30, message = "Campo tipoArmazenamento deve ter tamanho entre 5 e 30.")
+    @Size(min = 2, max = 30, message = "Campo deve ter tamanho entre 2 e 30.")
     private String tipoArmazenamento;
 
     @NotBlank
-    @Size(min = 2, max = 30, message = "Campo capacidadeArmazenamento deve ter tamanho entre 5 e 30.")
+    @Size(min = 2, max = 30, message = "Campo capacidadeArmazenamento deve ter tamanho entre 2 e 30.")
     private String capacidadeArmazenamento;
 
     @NotBlank
-    @Size(min = 2, max = 30, message = "Campo tipoDeConexão deve ter tamanho entre 5 e 30.")
+    @Size(min = 2, max = 30, message = "Campo tipoDeConexão deve ter tamanho entre 2 e 30.")
     private String tipoDeConexao;
 
     @NotNull
