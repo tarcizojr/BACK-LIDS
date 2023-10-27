@@ -13,7 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
 public class TestEditarProjeto {
-        private WebDriver driver;
+    private WebDriver driver;
 
     @Before
     public void setUp() {
@@ -39,12 +39,12 @@ public class TestEditarProjeto {
     driver.get("http://localhost:3000/");
     driver.manage().window().setSize(new Dimension(1936, 1066));
      String urlMenu = driver.getCurrentUrl();
-        assertEquals(urlMenu, "http://localhost:3000/");
+    assertEquals(urlMenu, "http://localhost:3000/");
     timeSleep();
     driver.findElement(By.cssSelector("a:nth-child(1) .p-button-label")).click();
     String urlListarProjeto = driver.getCurrentUrl();
     assertEquals(urlListarProjeto, "http://localhost:3000/projetos");
-      timeSleep();
+    timeSleep();
     driver.findElement(By.cssSelector(".p-button:nth-child(1) > svg")).click();
     driver.findElement(By.id("nomeDoProjeto")).click();
     driver.findElement(By.id("nomeDoProjeto")).sendKeys("2.0");
