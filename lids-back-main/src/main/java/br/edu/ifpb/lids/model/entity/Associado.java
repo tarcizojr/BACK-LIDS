@@ -2,25 +2,19 @@ package br.edu.ifpb.lids.model.entity;
 
 import br.edu.ifpb.lids.model.enums.StatusAssociado;
 import br.edu.ifpb.lids.model.enums.TipoAssociado;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-
-
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@MappedSuperclass
+@Entity
 @Data
-public abstract class Associado implements Serializable {
+@Table(name = "associado")
+public class Associado implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,7 +33,6 @@ public abstract class Associado implements Serializable {
     @Size(max = 12, message = "Tamanho máximo da matrícula é 12.")
     private String matricula;
 
-    //    @Pattern(regexp = "\\d{2}-\\d{2}-\\d{4}", message = "Data deve ser no formato dd-mm-aaaa")
     private LocalDate dataDeNascimento;
 
     @NotBlank
@@ -61,4 +54,7 @@ public abstract class Associado implements Serializable {
 
     @Size(max = 120, message = "Endereço não pode ter tamanho maior que 120.")
     private String endereco;
+
+    @Size(max = 256, message = "Link não deve ter tamanho maior que 256.")
+    private String linkCurriculo;
 }

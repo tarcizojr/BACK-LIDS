@@ -43,6 +43,7 @@ public class Escala {
     @OneToMany
     private List<Horario> horario;
 
-    @ManyToOne
-    private Colaborador colaborador;
+    @OneToMany
+    private List<Regime> regimes;
+
 }

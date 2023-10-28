@@ -1,13 +1,9 @@
 package br.edu.ifpb.lids.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,13 +12,13 @@ import java.util.List;
 @Data
 public class Colaborador extends Associado {
 
-    @Size(max = 256, message = "Link não deve ter tamanho maior que 256.")
-    private String linkCurriculo;
-
     private Float cargaHorariaSemanal;
 
-    @ManyToMany(mappedBy = "colaboradores")
+    @OneToOne
     @JsonIgnore
-    private List<Projeto> projetos = new ArrayList<>();
+    private Projeto projeto;
+
+    @OneToMany
+    private List<Regime> regimes;
    
 }

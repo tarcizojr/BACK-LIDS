@@ -1,7 +1,6 @@
 package br.edu.ifpb.lids.business.service.impl;
 
 import br.edu.ifpb.lids.business.service.ProjetoService;
-import br.edu.ifpb.lids.model.entity.Colaborador;
 import br.edu.ifpb.lids.model.entity.Projeto;
 import br.edu.ifpb.lids.model.enums.StatusProjeto;
 import br.edu.ifpb.lids.model.repository.ProjetoRepository;
@@ -45,7 +44,7 @@ public class ProjetoServiceImpl implements ProjetoService {
         } catch (Exception e) {
             throw new IllegalStateException("Projeto não encontrado.");
         }
-        List<Colaborador> colaboradors = proj.getColaboradores();
+//        List<Colaborador> colaboradors = proj.getColaboradores();
 
         for (Field field : Projeto.class.getDeclaredFields()) {
             field.setAccessible(true);
@@ -56,7 +55,7 @@ public class ProjetoServiceImpl implements ProjetoService {
                 logger.error("Falha ao verificar campos de alteração do projeto.");
             }
         }
-        projeto.setColaboradores(colaboradors);
+//        projeto.setColaboradores(colaboradors);
 
         return projetoRepository.save(projeto);
     }
@@ -75,8 +74,8 @@ public class ProjetoServiceImpl implements ProjetoService {
     @Override
     public Projeto findById(Long id) {
         Projeto projeto = projetoRepository.findById(id).get();
-        List<Colaborador> colaboradors = projeto.getColaboradores();
-        projeto.setColaboradores(colaboradors);
+//        List<Colaborador> colaboradors = projeto.getColaboradores();
+//        projeto.setColaboradores(colaboradors);
         return projeto;
     }
 
