@@ -54,7 +54,6 @@ public class AssociadoServiceImpl implements AssociadoService {
                 logger.error("Falha ao verificar campos de alteração do associado.");
             }
         }
-
         return associadoRepository.save(assoc);
     }
 
@@ -82,7 +81,6 @@ public class AssociadoServiceImpl implements AssociadoService {
 
     @Override
     public Associado findByMatricula(String matricula) {
-
         return associadoRepository.findByMatricula(matricula);
     }
 

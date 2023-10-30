@@ -54,7 +54,7 @@ public class ComputadorController {
 
 
     @GetMapping("/all")
-    public ResponseEntity findAll() throws Exception{
+    public ResponseEntity findAll(){
         List<ComputadorDto> dtos = computadorService.findAll().stream().map(this::mapToComputadorDto).toList();
 
         return ResponseEntity.ok(dtos);

@@ -54,7 +54,7 @@ public class EquipamentoController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity findAll() throws Exception {
+    public ResponseEntity findAll()  {
         List<EquipamentoDto> dtos = equipamentoService.findAll().stream().map(this::mapToEquipamentoDto).toList();
 
         return ResponseEntity.ok(dtos);
