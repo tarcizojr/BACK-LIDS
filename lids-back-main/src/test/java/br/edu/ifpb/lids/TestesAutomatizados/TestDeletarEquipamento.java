@@ -44,7 +44,9 @@ public class TestDeletarEquipamento {
     assertEquals(urlListarEquipamentos, "http://localhost:3000/equipamentos");
     timeSleep();
     driver.findElement(By.cssSelector(".card:nth-child(1) .p-button:nth-child(2) > svg")).click();
+    timeSleep();
     driver.findElement(By.cssSelector(".p-confirm-dialog-accept > .p-button-label")).click();
+    timeSleep();
     driver.close();
   }
 }

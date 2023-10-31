@@ -2,7 +2,7 @@ package br.edu.ifpb.lids.TestesIntegração;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -28,7 +28,7 @@ public class TesteIntegraEquipamentos {
     private EquipamentoRepository equipamentoRepository;
 
     @Mock
-    private ValidadorService validadorService; 
+    private ValidadorService validadorService;
 
     @InjectMocks
     private EquipamentoServiceImpl equipamentoService;
@@ -64,7 +64,6 @@ public class TesteIntegraEquipamentos {
 
         assertEquals(equipamentos.size(), equipamentosEncontrados.size());
     }
-
 
     @Test
     public void testFindEquipamentoByCodigo() {
@@ -107,14 +106,11 @@ public class TesteIntegraEquipamentos {
         equipamento.setId(1L);
         equipamento.setCodigo(1001);
 
-        when(equipamentoRepository.findByCodigo(1001)).thenReturn(new Equipamento());
-        when(equipamentoRepository.findById(1L)).thenReturn(Optional.of(equipamento));
+        when(equipamentoRepository.findById(anyLong())).thenReturn(Optional.of(new Equipamento()));
 
-        Equipamento equipamentoAtualizado = new Equipamento();
-        equipamentoAtualizado.setId(1L);
-        equipamentoAtualizado.setCodigo(1001); 
+        Equipamento equipamentoAtualizado = equipamentoService.update(1L, equipamento);
 
-        equipamentoService.update(1L, equipamentoAtualizado);
+        assertNotNull(equipamentoAtualizado);
     }
 
 }
