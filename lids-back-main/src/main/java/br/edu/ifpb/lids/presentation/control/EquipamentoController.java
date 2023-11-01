@@ -3,7 +3,10 @@ package br.edu.ifpb.lids.presentation.control;
 import br.edu.ifpb.lids.business.service.EquipamentoService;
 import br.edu.ifpb.lids.business.service.impl.ConverteService;
 import br.edu.ifpb.lids.model.entity.Equipamento;
+import br.edu.ifpb.lids.model.entity.Escala;
 import br.edu.ifpb.lids.presentation.dto.EquipamentoDto;
+import br.edu.ifpb.lids.presentation.dto.EscalaDto;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -69,6 +72,16 @@ public class EquipamentoController {
         try {
             equipamentoService.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Equipamento não encontrado.");
+        }
+    }
+
+     @GetMapping("/{id}")
+    public ResponseEntity findById(@PathVariable("id") Long id) {
+        try {
+            Equipamento equipamento = equipamentoService.findById(id);
+            return ResponseEntity.ok(mapper.map(equipamento, EquipamentoDto.class));
         }catch (Exception e){
             return ResponseEntity.badRequest().body("Equipamento não encontrado.");
         }
