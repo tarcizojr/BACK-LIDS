@@ -64,9 +64,9 @@ public class AreaDeTrabalhoController {
             //     if(eq.getId().equals(areaDeTrabalho.getId())) {
             //         throw new IllegalStateException("Equipamento já cadastrado no projeto.");
             //     }
-            // }
+            // } 
             equipamentos.add(equipamento);
-            areaDeTrabalho.setEquipamentos(equipamento);
+            areaDeTrabalho.setEquipamentos(equipamentos);
             areaDeTrabalhoService.update(areaDeTrabalho.getId(), areaDeTrabalho);
 
             return ResponseEntity.ok().body(mapper.map(areaDeTrabalho, AreaDeTrabalhoDto.class));

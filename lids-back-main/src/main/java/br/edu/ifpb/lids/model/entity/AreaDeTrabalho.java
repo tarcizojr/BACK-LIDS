@@ -29,5 +29,5 @@ public class AreaDeTrabalho {
     private String descricao;
     
     @ManyToOne
-    private Equipamento equipamentos; 
+    private List<Equipamento> equipamentos; 
 }

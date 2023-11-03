@@ -33,4 +33,7 @@ public class Equipamento implements Serializable {
     @NotBlank
     private String descricao;
 
+    @OneToMany
+    private AreaDeTrabalho areaDeTrabalho;
+
 }
