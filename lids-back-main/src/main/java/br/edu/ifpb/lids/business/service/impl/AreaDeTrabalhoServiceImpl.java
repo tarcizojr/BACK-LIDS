@@ -36,7 +36,7 @@ public class AreaDeTrabalhoServiceImpl implements AreaDeTrabalhoService {
     @Override
     public void delete(Long id) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+         areaDeTrabalhoRepository.deleteById(id);
     }
 
     @Override
@@ -72,5 +72,6 @@ public class AreaDeTrabalhoServiceImpl implements AreaDeTrabalhoService {
 
         return areaDeTrabalhoRepository.save(area);
     }
+
     
 }

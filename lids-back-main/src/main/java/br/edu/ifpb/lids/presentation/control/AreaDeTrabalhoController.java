@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,7 +60,7 @@ public class AreaDeTrabalhoController {
             AreaDeTrabalho areaDeTrabalho = areaDeTrabalhoService.findById(request.getIdAreaDeTrabalho());
             Equipamento equipamento = equipamentoService.findById(request.getIdEquipamento());
             System.out.println("Equipamento" + equipamento);
-            List<Equipamento> equipamentos = new ArrayList<>();
+            List<Equipamento> equipamentos = areaDeTrabalho.getEquipamentos();
             // for(Equipamento eq: equipamentos){
             //     if(eq.getId().equals(areaDeTrabalho.getId())) {
             //         throw new IllegalStateException("Equipamento já cadastrado no projeto.");
@@ -100,5 +101,14 @@ public class AreaDeTrabalhoController {
             return ResponseEntity.ok(dtos);
         }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable("id") Long id){
+        try {
+            areaDeTrabalhoService.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Area não encontrada.");
+        }
+    }
 
 }

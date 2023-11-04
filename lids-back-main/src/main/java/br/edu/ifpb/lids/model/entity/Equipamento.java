@@ -33,7 +33,7 @@ public class Equipamento implements Serializable {
     @NotBlank
     private String descricao;
 
-    @OneToMany
+    @ManyToOne
     private AreaDeTrabalho areaDeTrabalho;
 
 }

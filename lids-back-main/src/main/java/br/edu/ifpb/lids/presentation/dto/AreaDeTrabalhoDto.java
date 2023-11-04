@@ -1,6 +1,9 @@
 package br.edu.ifpb.lids.presentation.dto;
 
 
+import java.util.List;
+
+
 import lombok.Data;
 
 @Data
@@ -12,5 +15,5 @@ public class AreaDeTrabalhoDto {
     private String codigo;
     private String descricao;
     
-    private EquipamentoDto equipamentos; 
+    private List<EquipamentoDto> equipamentos; 
 }
