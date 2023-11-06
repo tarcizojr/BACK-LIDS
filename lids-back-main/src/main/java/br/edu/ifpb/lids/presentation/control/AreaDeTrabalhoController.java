@@ -54,18 +54,18 @@ public class AreaDeTrabalhoController {
     }
 
     @PostMapping("/addEquipamento")
-    public ResponseEntity addColaborador(@RequestBody AdicionarEquipamentoRequest request) {
+    public ResponseEntity addEquipamento(@RequestBody AdicionarEquipamentoRequest request) {
 
         try{
             AreaDeTrabalho areaDeTrabalho = areaDeTrabalhoService.findById(request.getIdAreaDeTrabalho());
             Equipamento equipamento = equipamentoService.findById(request.getIdEquipamento());
             System.out.println("Equipamento" + equipamento);
             List<Equipamento> equipamentos = areaDeTrabalho.getEquipamentos();
-            // for(Equipamento eq: equipamentos){
-            //     if(eq.getId().equals(areaDeTrabalho.getId())) {
-            //         throw new IllegalStateException("Equipamento já cadastrado no projeto.");
-            //     }
-            // } 
+            for(Equipamento eq: equipamentos){
+                if(eq.getId().equals(equipamento.getId())) {
+                    throw new IllegalStateException("Equipamento já cadastrado na Area.");
+                }
+            } 
             equipamentos.add(equipamento);
             areaDeTrabalho.setEquipamentos(equipamentos);
             areaDeTrabalhoService.update(areaDeTrabalho.getId(), areaDeTrabalho);
@@ -75,6 +75,34 @@ public class AreaDeTrabalhoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+     @PostMapping("/removerEquipamento")
+    public ResponseEntity removerEquipamento(@RequestBody AdicionarEquipamentoRequest request) {
+
+        try{
+            AreaDeTrabalho areaDeTrabalho = areaDeTrabalhoService.findById(request.getIdAreaDeTrabalho());
+            Equipamento equipamento = equipamentoService.findById(request.getIdEquipamento());
+            System.out.println("Equipamento" + equipamento);
+            List<Equipamento> equipamentos = areaDeTrabalho.getEquipamentos();
+
+            for(Equipamento eq: equipamentos){
+                if(eq.getId().equals(equipamento.getId())) {
+                     equipamentos.remove(equipamento);
+                   
+                }else{
+                    throw new IllegalStateException("Equipamento não esta na Area.");
+                }
+            } 
+           
+            areaDeTrabalho.setEquipamentos(equipamentos);
+            areaDeTrabalhoService.update(areaDeTrabalho.getId(), areaDeTrabalho);
+
+            return ResponseEntity.ok().body(mapper.map(areaDeTrabalho, AreaDeTrabalhoDto.class));
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable("id") Long id) {
