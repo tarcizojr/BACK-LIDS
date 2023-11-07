@@ -5,6 +5,7 @@ import br.edu.ifpb.lids.business.service.ProjetoService;
 import br.edu.ifpb.lids.business.service.impl.ConverteService;
 import br.edu.ifpb.lids.model.entity.Projeto;
 import br.edu.ifpb.lids.model.enums.StatusProjeto;
+import br.edu.ifpb.lids.presentation.dto.AdicionaColaboradorRequest;
 import br.edu.ifpb.lids.presentation.dto.ProjetoDto;
 
 
@@ -70,10 +71,10 @@ public class ProjetoController {
         }
     }
     
-//    @PostMapping("/addColaborador")
-//    public ResponseEntity addColaborador(@RequestBody AdicionaColaboradorRequest request) {
-//
-//        try{
+    @PostMapping("/addColaborador")
+    public ResponseEntity addColaborador(@RequestBody AdicionaColaboradorRequest request) {
+
+        try{
 //            Colaborador colab = colaboradorService.findById(request.getIdColaborador());
 //            Projeto projeto = projetoService.findById(request.getIdProjeto());
 //
@@ -87,14 +88,14 @@ public class ProjetoController {
 //            colab.setStatus(StatusAssociado.ATIVO);
 //            colaboradorService.update(colab.getId(), colab);
 //            colaboradores.add(colab);
-//
+
 //            projetoService.update(projeto.getId(), projeto);
-//
-//            return ResponseEntity.ok().body(mapper.map(projeto, ProjetoDto.class));
-//        } catch (Exception e){
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
+
+            return ResponseEntity.ok().body(mapper.map(projetoService.addColaborador(request), ProjetoDto.class));
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") Long id){

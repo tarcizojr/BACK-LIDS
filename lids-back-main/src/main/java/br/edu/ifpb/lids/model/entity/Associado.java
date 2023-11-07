@@ -10,7 +10,8 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DTYPE")
 @Entity
 @Data
 @Table(name = "associado")

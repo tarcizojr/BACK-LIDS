@@ -1,16 +1,14 @@
 package br.edu.ifpb.lids.business.service.impl;
 
 import br.edu.ifpb.lids.business.service.ColaboradorService;
+import br.edu.ifpb.lids.model.entity.Associado;
 import br.edu.ifpb.lids.model.entity.Colaborador;
-import br.edu.ifpb.lids.model.entity.Regime;
 import br.edu.ifpb.lids.model.enums.StatusAssociado;
 import br.edu.ifpb.lids.model.repository.ColaboradorRepository;
 import br.edu.ifpb.lids.model.repository.RegimeRepository;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -41,6 +39,33 @@ public class ColaboradorServiceImpl implements ColaboradorService {
         colaborador.setStatus(StatusAssociado.INATIVO);
         return colaboradorRepository.save(colaborador);
     }
+
+
+
+    @Override
+    public Colaborador criarColaborador(Associado associado) {
+        Colaborador colaborador = new Colaborador();
+
+        for (Field field : Associado.class.getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                if (field.get(associado) != null && !field.get(associado).equals(field.get(colaborador)))
+                    field.set(colaborador, field.get(associado));
+            } catch (IllegalAccessException e) {
+                logger.error("Falha ao verificar campos de criar colaborador.");
+            }
+        }
+
+        colaborador.setCargaHorariaSemanal(10f);
+
+        return colaboradorRepository.save(colaborador);
+    }
+
+    @Override
+    public Colaborador salvar(Colaborador colaborador) {
+        return colaboradorRepository.save(colaborador);
+    }
+
 
     @Override
     public Colaborador update(Long id, Colaborador colaborador) {

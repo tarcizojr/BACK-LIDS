@@ -1,7 +1,6 @@
 package br.edu.ifpb.lids.presentation.control;
 
 import br.edu.ifpb.lids.business.service.EscalaService;
-import br.edu.ifpb.lids.business.service.impl.ConverteService;
 import br.edu.ifpb.lids.model.entity.Escala;
 import br.edu.ifpb.lids.presentation.dto.EscalaDto;
 import org.modelmapper.ModelMapper;
@@ -13,9 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/escala")
 public class EscalaController {
-
-    @Autowired
-    private ConverteService converteService;
 
     @Autowired
     private EscalaService escalaService;

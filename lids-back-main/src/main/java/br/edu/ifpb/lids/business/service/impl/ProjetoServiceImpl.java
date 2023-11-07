@@ -1,9 +1,14 @@
 package br.edu.ifpb.lids.business.service.impl;
 
+import br.edu.ifpb.lids.business.service.AssociadoService;
+import br.edu.ifpb.lids.business.service.ColaboradorService;
 import br.edu.ifpb.lids.business.service.ProjetoService;
+import br.edu.ifpb.lids.model.entity.Associado;
+import br.edu.ifpb.lids.model.entity.Colaborador;
 import br.edu.ifpb.lids.model.entity.Projeto;
 import br.edu.ifpb.lids.model.enums.StatusProjeto;
 import br.edu.ifpb.lids.model.repository.ProjetoRepository;
+import br.edu.ifpb.lids.presentation.dto.AdicionaColaboradorRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +22,12 @@ public class ProjetoServiceImpl implements ProjetoService {
 
     @Autowired
     private ProjetoRepository projetoRepository;
+
+    @Autowired
+    private AssociadoService associadoService;
+
+    @Autowired
+    private ColaboradorService colaboradorService;
 
     private final Logger logger = LoggerFactory.getLogger(ProjetoServiceImpl.class);
 
@@ -82,6 +93,24 @@ public class ProjetoServiceImpl implements ProjetoService {
     @Override
     public Projeto findByTitulo(String titulo) {
         return projetoRepository.findByTitulo(titulo);
+    }
+
+    @Override
+    public Projeto addColaborador(AdicionaColaboradorRequest request) {
+
+        Projeto projeto = findById(request.getIdProjeto());
+        Associado associado = associadoService.findById(request.getIdAssociado());
+
+        if(projeto != null && associado != null && associado instanceof Associado){
+//            Colaborador colaborador = new Colaborador;
+            Colaborador colaborador = colaboradorService.criarColaborador(associado);
+            projeto.setAssociado(colaborador);
+            colaboradorService.salvar(colaborador);
+            projetoRepository.save(projeto);
+            return projeto;
+        } else {
+            throw new IllegalStateException("Projeto não encontrado.");
+        }
     }
 
 }

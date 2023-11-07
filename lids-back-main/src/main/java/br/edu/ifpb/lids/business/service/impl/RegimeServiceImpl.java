@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.lids.business.service.RegimeService;
-import br.edu.ifpb.lids.model.entity.Escala;
 import br.edu.ifpb.lids.model.entity.Regime;
 import br.edu.ifpb.lids.model.repository.RegimeRepository;
 import br.edu.ifpb.lids.presentation.dto.RegimeDto;
@@ -23,7 +22,8 @@ public class RegimeServiceImpl implements RegimeService {
 
     @Override
     public Regime create(RegimeDto Regime) {
-       return regimeRepository.save(modelMapper.map(Regime, Regime.class));
+
+        return regimeRepository.save(modelMapper.map(Regime, Regime.class));
     }
 
     @Override
