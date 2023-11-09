@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifpb.lids.business.service.AreaDeTrabalhoService;
 import br.edu.ifpb.lids.business.service.EquipamentoService;
+import br.edu.ifpb.lids.business.service.impl.ConverteService;
 import br.edu.ifpb.lids.model.entity.AreaDeTrabalho;
 import br.edu.ifpb.lids.model.entity.Colaborador;
 import br.edu.ifpb.lids.model.entity.Equipamento;
@@ -31,6 +33,9 @@ import br.edu.ifpb.lids.presentation.dto.ProjetoDto;
 @RestController
 @RequestMapping("/api/areaDeTrabalho")
 public class AreaDeTrabalhoController {
+
+    @Autowired
+    private ConverteService converteService;
 
     @Autowired
     private AreaDeTrabalhoService areaDeTrabalhoService;
@@ -76,32 +81,33 @@ public class AreaDeTrabalhoController {
         }
     }
 
-     @PostMapping("/removerEquipamento")
+    
+    @PostMapping("/removerEquipamento")
     public ResponseEntity removerEquipamento(@RequestBody AdicionarEquipamentoRequest request) {
-
-        try{
-            AreaDeTrabalho areaDeTrabalho = areaDeTrabalhoService.findById(request.getIdAreaDeTrabalho());
-            Equipamento equipamento = equipamentoService.findById(request.getIdEquipamento());
-            System.out.println("Equipamento" + equipamento);
+        try {
+            Long areaId = request.getIdAreaDeTrabalho();
+            AreaDeTrabalho areaDeTrabalho = areaDeTrabalhoService.findById(areaId);
+    
+            Long equipamentoId = request.getIdEquipamento();
+            Equipamento equipamento = equipamentoService.findById(equipamentoId);
+    
             List<Equipamento> equipamentos = areaDeTrabalho.getEquipamentos();
-
-            for(Equipamento eq: equipamentos){
-                if(eq.getId().equals(equipamento.getId())) {
-                     equipamentos.remove(equipamento);
-                   
-                }else{
-                    throw new IllegalStateException("Equipamento não esta na Area.");
-                }
-            } 
-           
+    
+            if (equipamentos.contains(equipamento)) {
+                equipamentos.remove(equipamento);
+            } else {
+                throw new IllegalStateException("Equipamento não está na Área.");
+            }
+    
             areaDeTrabalho.setEquipamentos(equipamentos);
             areaDeTrabalhoService.update(areaDeTrabalho.getId(), areaDeTrabalho);
-
+    
             return ResponseEntity.ok().body(mapper.map(areaDeTrabalho, AreaDeTrabalhoDto.class));
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    
 
 
     @GetMapping("/{id}")
@@ -136,6 +142,19 @@ public class AreaDeTrabalhoController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }catch (Exception e){
             return ResponseEntity.badRequest().body("Area não encontrada.");
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody AreaDeTrabalhoDto dto){
+        try {
+            dto.setId(id);
+            AreaDeTrabalho entity = converteService.dtoToArea(dto);
+            entity = areaDeTrabalhoService.update(id,entity);
+            dto = converteService.areatoToDto(entity);
+            return ResponseEntity.ok(dto);
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

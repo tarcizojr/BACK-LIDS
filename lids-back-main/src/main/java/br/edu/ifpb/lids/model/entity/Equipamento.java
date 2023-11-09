@@ -22,10 +22,10 @@ public class Equipamento implements Serializable {
 
     @Column(unique = true)
     @NotNull
-    @Digits(integer = 4, fraction = 0, message = "O campo deve ter exatamente 4 dígitos")
+    @Digits(integer = 3, fraction = 0, message = "O campo deve ter exatamente 3 dígitos")
     private Integer codigo;
 
-    @Size(min = 2, max = 30, message = "Campo deve ter tamanho entre 5 e 30.")
+    @Size(min = 2, max = 30, message = "Campo deve ter tamanho entre 2 e 30.")
     @NotBlank
     private String nome;
 
