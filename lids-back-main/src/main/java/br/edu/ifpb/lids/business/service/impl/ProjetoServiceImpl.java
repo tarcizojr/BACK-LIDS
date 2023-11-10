@@ -100,17 +100,46 @@ public class ProjetoServiceImpl implements ProjetoService {
 
         Projeto projeto = findById(request.getIdProjeto());
         Associado associado = associadoService.findById(request.getIdAssociado());
-
-        if(projeto != null && associado != null && associado instanceof Associado){
-//            Colaborador colaborador = new Colaborador;
-            Colaborador colaborador = colaboradorService.criarColaborador(associado);
-            projeto.setAssociado(colaborador);
-            colaboradorService.salvar(colaborador);
-            projetoRepository.save(projeto);
-            return projeto;
-        } else {
-            throw new IllegalStateException("Projeto não encontrado.");
+        List<Colaborador> colaboradors = projeto.getColaboradores();
+        try {
+            if (projeto != null && associado != null) {
+                // Verifica se o associado já não é um colaborador
+                if (associado instanceof Colaborador) {
+                    for (Colaborador colab : colaboradors) {
+                        if (!colab.getMatricula().equals(associado.getMatricula())) {
+                            colaboradors.add((Colaborador) associado);
+                            colaboradorService.update(associado.getId(), (Colaborador) associado);
+                        }
+                    }
+                } else {
+                    // Converte o associado em colaborador
+                    Colaborador colaborador = colaboradorService.criarColaborador(associado);
+                    for (Colaborador colab : colaboradors) {
+                        if (!colab.getMatricula().equals(colaborador.getMatricula())) {
+                            colaboradors.add(colaborador);
+                            colaboradorService.update(colaborador.getId(), colaborador);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new IllegalStateException("Projeto ou associado não encontrado.");
         }
+        projeto.setColaboradores(colaboradors);
+        projetoRepository.save(projeto);
+        return projeto;
     }
-
 }
+//
+//        if(projeto != null && associado != null && associado instanceof Associado){
+////            Colaborador colaborador = new Colaborador;
+//            Colaborador colaborador = colaboradorService.criarColaborador(associado);
+//            projeto.setAssociado(colaborador);
+//            colaboradorService.salvar(colaborador);
+//            projetoRepository.save(projeto);
+//            return projeto;
+//        } else {
+//            throw new IllegalStateException("Projeto não encontrado.");
+//        }
+//    }
+

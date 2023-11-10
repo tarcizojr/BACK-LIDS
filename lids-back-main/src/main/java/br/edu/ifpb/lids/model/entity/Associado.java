@@ -10,11 +10,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "DTYPE")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Entity
 @Data
-@Table(name = "associado")
 public class Associado implements Serializable {
 
     private static final long serialVersionUID = 1L;

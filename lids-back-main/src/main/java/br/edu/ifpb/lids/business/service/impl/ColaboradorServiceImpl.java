@@ -46,6 +46,8 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     public Colaborador criarColaborador(Associado associado) {
         Colaborador colaborador = new Colaborador();
 
+        colaborador.setMatricula(associado.getMatricula());
+
         for (Field field : Associado.class.getDeclaredFields()) {
             field.setAccessible(true);
             try {

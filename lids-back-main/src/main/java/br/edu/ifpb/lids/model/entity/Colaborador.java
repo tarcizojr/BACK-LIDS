@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "colaborador")
+@PrimaryKeyJoinColumn(name="id")
 @Data
 public class Colaborador extends Associado {
 

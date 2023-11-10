@@ -75,22 +75,6 @@ public class ProjetoController {
     public ResponseEntity addColaborador(@RequestBody AdicionaColaboradorRequest request) {
 
         try{
-//            Colaborador colab = colaboradorService.findById(request.getIdColaborador());
-//            Projeto projeto = projetoService.findById(request.getIdProjeto());
-//
-//            List<Colaborador> colaboradores = projeto.getColaboradores();
-//
-//            for(Colaborador colaborador: colaboradores){
-//                if(colaborador.getId().equals(colab.getId())) {
-//                    throw new IllegalStateException("Colaborador já cadastrado no projeto.");
-//                }
-//            }
-//            colab.setStatus(StatusAssociado.ATIVO);
-//            colaboradorService.update(colab.getId(), colab);
-//            colaboradores.add(colab);
-
-//            projetoService.update(projeto.getId(), projeto);
-
             return ResponseEntity.ok().body(mapper.map(projetoService.addColaborador(request), ProjetoDto.class));
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());

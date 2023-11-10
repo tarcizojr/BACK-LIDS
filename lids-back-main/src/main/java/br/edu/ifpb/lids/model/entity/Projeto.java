@@ -9,6 +9,7 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -43,7 +44,11 @@ public class Projeto implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusProjeto status;
 
-    @ManyToOne
-    private Associado associado;
+    @ManyToMany
+    @JoinTable(
+            name = "projeto_colaborador",
+            joinColumns = @JoinColumn(name = "projeto_id"),
+            inverseJoinColumns = @JoinColumn(name = "colaborador_id"))
+    private List<Colaborador> colaboradores;
 
 }
