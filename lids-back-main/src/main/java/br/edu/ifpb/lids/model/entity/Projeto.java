@@ -9,8 +9,8 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -46,9 +46,9 @@ public class Projeto implements Serializable {
     @Size(min = 30,max = 256, message = "")
     private String descricao;
 
-    private Date dataInicio;
+    private LocalDate dataInicio;
 
-    private Date dataTermino;
+    private LocalDate dataTermino;
 
     @Enumerated(EnumType.STRING)
     private StatusProjeto status;

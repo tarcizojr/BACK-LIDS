@@ -5,7 +5,7 @@ import br.edu.ifpb.lids.model.enums.TipoProjeto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -18,20 +18,15 @@ public class ProjetoDto {
 
     private TipoProjeto tipo;
 
-    
     private String descricao;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
-    
-    private Date dataInicio;
+    private LocalDate dataInicio;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
-    
-    private Date dataTermino;
+    private LocalDate dataTermino;
 
-    
     private StatusProjeto status;
-
   
     private List<ColaboradorDto> colaboradores;
 

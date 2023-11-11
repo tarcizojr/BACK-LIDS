@@ -2,6 +2,7 @@ package br.edu.ifpb.lids.TestesIntegração;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
@@ -25,8 +26,8 @@ public class TesteIntegraProjetoController {
         ProjetoDto projeto = new ProjetoDto();
         projeto.setId(1L);
         projeto.setTitulo("Projeto 1");
-        projeto.setDataInicio(new Date());
-        projeto.setDataTermino(new Date());
+        projeto.setDataInicio(LocalDate.of(2023,10,9));
+        projeto.setDataTermino(LocalDate.of(2024,10,9));
         projeto.setDescricao("Uma descrição bem especifica");
         projeto.setStatus(StatusProjeto.EM_ANDAMENTO);
         projeto.setTipo(TipoProjeto.INOVACAO);
@@ -41,29 +42,23 @@ public class TesteIntegraProjetoController {
         ProjetoDto projeto = new ProjetoDto();
         projeto.setId(1L);
         projeto.setTitulo("Projeto 1");
-        projeto.setDataInicio(new Date());
-        projeto.setDataTermino(new Date());
+        projeto.setDataInicio(LocalDate.of(2023,10,9));
+        projeto.setDataTermino(LocalDate.of(2024,10,9));
         projeto.setDescricao("Uma descrição bem especifica");
         projeto.setStatus(StatusProjeto.EM_ANDAMENTO);
         projeto.setTipo(TipoProjeto.INOVACAO);
 
-        ColaboradorDto colaborador = new ColaboradorDto();
-        colaborador.setId(1L);
-        colaborador.setNome("Guilherme Rodrigues");
-        colaborador.setEmail("guilherme@gmail.com");
-        colaborador.setCidade("Monteiro");
-        colaborador.setEstado("Paraiba");
-        colaborador.setMatricula("202015020014");
-        colaborador.setEndereco("Av.Cicero Marinho");
-        colaborador.setDataDeNascimento(new Date());
-        colaborador.setCargaHorariaSemanal(1F);
-        colaborador.setLinkCurriculo("Link");
+        ProjetoDto projeto2 = new ProjetoDto();
+        projeto2.setId(1L);
+        projeto2.setTitulo("Projeto 2");
+        projeto.setDataInicio(LocalDate.of(2023,10,9));
+        projeto.setDataTermino(LocalDate.of(2024,10,9));
+        projeto2.setDescricao("Uma descrição bem especifica");
+        projeto2.setStatus(StatusProjeto.EM_ANDAMENTO);
+        projeto2.setTipo(TipoProjeto.EXTENSAO);
 
-        AdicionaColaboradorRequest adicionaColaboradorRequest = new AdicionaColaboradorRequest();
-        adicionaColaboradorRequest.setIdColaborador(1L);
-        adicionaColaboradorRequest.setIdProjeto(1L);
-
-        assertDoesNotThrow(() -> projetoController.addColaborador(adicionaColaboradorRequest));
+        projetoController.create(projeto);
+        assertDoesNotThrow(() -> projetoController.update(1L, projeto2));
     }
 
     @Test
@@ -72,8 +67,8 @@ public class TesteIntegraProjetoController {
         ProjetoDto projeto = new ProjetoDto();
         projeto.setId(1L);
         projeto.setTitulo("Projeto 1");
-        projeto.setDataInicio(new Date());
-        projeto.setDataTermino(new Date());
+        projeto.setDataInicio(LocalDate.of(2023,10,9));
+        projeto.setDataTermino(LocalDate.of(2024,10,9));
         projeto.setDescricao("Uma descrição bem especifica");
         projeto.setStatus(StatusProjeto.EM_ANDAMENTO);
         projeto.setTipo(TipoProjeto.INOVACAO);
@@ -88,8 +83,8 @@ public class TesteIntegraProjetoController {
         ProjetoDto projeto = new ProjetoDto();
         projeto.setId(1L);
         projeto.setTitulo("Projeto 1");
-        projeto.setDataInicio(new Date());
-        projeto.setDataTermino(new Date());
+        projeto.setDataInicio(LocalDate.of(2023,10,9));
+        projeto.setDataTermino(LocalDate.of(2024,10,9));
         projeto.setDescricao("Uma descrição bem especifica");
         projeto.setStatus(StatusProjeto.EM_ANDAMENTO);
         projeto.setTipo(TipoProjeto.INOVACAO);
@@ -102,7 +97,7 @@ public class TesteIntegraProjetoController {
         colaborador.setEstado("Paraiba");
         colaborador.setMatricula("202015020014");
         colaborador.setEndereco("Av.Cicero Marinho");
-        colaborador.setDataDeNascimento(new Date());
+        colaborador.setDataDeNascimento(LocalDate.of(2000,10,9));
         colaborador.setCargaHorariaSemanal(1F);
         colaborador.setLinkCurriculo("Link");
 

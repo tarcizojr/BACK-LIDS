@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 public class ProjetoServiceImpl implements ProjetoService {
-    
+
     @Autowired
     private ProjetoRepository projetoRepository;
 
@@ -24,10 +24,12 @@ public class ProjetoServiceImpl implements ProjetoService {
 
     @Override
     public Projeto create(Projeto projeto) {
-        if(findByTitulo(projeto.getTitulo()) != null){
+        if (findByTitulo(projeto.getTitulo()) != null) {
             throw new IllegalStateException("Projeto já cadastrado.");
         }
-        if(projeto.getDataInicio().after(projeto.getDataTermino())){
+
+        if (projeto.getDataInicio().isAfter(projeto.getDataTermino())) {
+
             throw new IllegalStateException("Data de início não pode ser superior a data de término.");
         }
         projeto.setStatus(StatusProjeto.EM_ANDAMENTO);
@@ -38,20 +40,20 @@ public class ProjetoServiceImpl implements ProjetoService {
     public Projeto update(Long id, Projeto projeto) {
         Projeto proj;
 
-        try{
+        try {
             proj = findById(id);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new IllegalStateException("Projeto não encontrado.");
         }
         List<Colaborador> colaboradors = proj.getColaboradores();
 
-        for(Field field: Projeto.class.getDeclaredFields()){
+        for (Field field : Projeto.class.getDeclaredFields()) {
             field.setAccessible(true);
-            try{
-                if(field.get(projeto) != null && !field.get(projeto).equals(field.get(proj)))
+            try {
+                if (field.get(projeto) != null && !field.get(projeto).equals(field.get(proj)))
                     field.set(proj, field.get(projeto));
             } catch (IllegalAccessException e) {
-                logger.error("Falha ao verificar campos de alteração do colaborador.");
+                logger.error("Falha ao verificar campos de alteração do projeto.");
             }
         }
         projeto.setColaboradores(colaboradors);
@@ -61,6 +63,7 @@ public class ProjetoServiceImpl implements ProjetoService {
 
     @Override
     public void delete(Long id) {
+
         projetoRepository.deleteById(id);
     }
 
@@ -71,7 +74,7 @@ public class ProjetoServiceImpl implements ProjetoService {
 
     @Override
     public Projeto findById(Long id) {
-        Projeto projeto =  projetoRepository.findById(id).get();
+        Projeto projeto = projetoRepository.findById(id).get();
         List<Colaborador> colaboradors = projeto.getColaboradores();
         projeto.setColaboradores(colaboradors);
         return projeto;

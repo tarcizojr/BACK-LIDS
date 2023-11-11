@@ -8,6 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 
@@ -46,7 +47,7 @@ public class TesteIntegraColaborador {
         colaborador.setEstado("Paraiba");
         colaborador.setMatricula("202015020014");
         colaborador.setEndereco("Av.Cicero Marinho");
-        colaborador.setDataDeNascimento(new Date());
+        colaborador.setDataDeNascimento(LocalDate.of(2000,10,9));
         colaborador.setCargaHorariaSemanal(1F);
         colaborador.setLinkCurriculo("Link");
     }

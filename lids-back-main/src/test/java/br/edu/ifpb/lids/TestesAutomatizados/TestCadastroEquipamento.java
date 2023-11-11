@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
-public class TestCadastroProjeto {
+public class TestCadastroEquipamento {
     private WebDriver driver;
 
     @Before
@@ -35,35 +35,30 @@ public class TestCadastroProjeto {
     }
 
     @Test
-    public void cadastrodeProjeto() {
+    public void cadastroEquipamento() {
         driver.get("http://localhost:3000/");
-        driver.manage().window().setSize(new Dimension(1920, 1080));
+        driver.manage().window().setSize(new Dimension(1936, 1066));
 
         String urlMenu = driver.getCurrentUrl();
         assertEquals(urlMenu, "http://localhost:3000/");
 
-        driver.findElement(By.cssSelector("a:nth-child(1) .p-button-label")).click();
+        driver.findElement(By.cssSelector("a:nth-child(5) .p-button-label")).click();
 
-        String urlListarProjeto = driver.getCurrentUrl();
-        assertEquals(urlListarProjeto, "http://localhost:3000/projetos");
+        String urlListarEquipamentos = driver.getCurrentUrl();
+        assertEquals(urlListarEquipamentos, "http://localhost:3000/equipamentos");
         timeSleep();
         driver.findElement(By.cssSelector(".p-button-raised:nth-child(1)")).click();
+
+        String urlListarCriarEquipamentos = driver.getCurrentUrl();
+        assertEquals(urlListarCriarEquipamentos, "http://localhost:3000/criarEquipamentos");
         timeSleep();
-        String urlCriarProjeto = driver.getCurrentUrl();
-        assertEquals(urlCriarProjeto, "http://localhost:3000/criarProjeto");
+        driver.findElement(By.id("nome")).click();
+        driver.findElement(By.id("nome")).sendKeys("Equipamento");
+        driver.findElement(By.id("codigo")).sendKeys("126");
+        driver.findElement(By.id("descricao")).click();
+        driver.findElement(By.id("descricao")).sendKeys("Uma descrição");
         timeSleep();
-        driver.findElement(By.id("nomeDoProjeto")).click();
-        driver.findElement(By.id("nomeDoProjeto")).sendKeys("Projeto Fenix 2.0");
-        driver.findElement(By.cssSelector(".p-dropdown-trigger")).click();
-        driver.findElement(By.cssSelector(".p-dropdown-item:nth-child(2)")).click();
-        driver.findElement(By.id("objetivo")).click();
-        driver.findElement(By.id("objetivo")).sendKeys(
-                "Lorem ipsum dolor sit amet. A optio veritatis ut voluptatem galisum et maiores rerum et vero adipisci ut asperiores dolores. Sit laborum voluptatem ut molestiae tempora ad explicabo aliquam ut voluptate laboriosam.");
-        driver.findElement(By.id("dataInicio")).click();
-        driver.findElement(By.id("dataInicio")).sendKeys("09042020");
-        driver.findElement(By.id("dataFim")).click();
-        driver.findElement(By.id("dataFim")).sendKeys("09042023");
-        driver.findElement(By.cssSelector(".p-button-raised > .p-button-label")).click();
+        driver.findElement(By.cssSelector(".p-button-raised > .p-button-label")).click();  
         timeSleep();
         {
             WebElement element = driver.findElement(By.cssSelector(".p-button-raised > .p-button-label"));
@@ -88,5 +83,4 @@ public class TestCadastroProjeto {
         }
         timeSleep();
     }
-
 }

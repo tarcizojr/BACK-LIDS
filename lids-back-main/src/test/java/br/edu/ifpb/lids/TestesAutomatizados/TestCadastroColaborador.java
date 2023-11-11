@@ -12,7 +12,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TestCadastroColaborador {
 
@@ -42,8 +41,6 @@ public class TestCadastroColaborador {
   public void cadastroColaboradorSucesso() {
     driver.get("http://localhost:3000/");
     driver.manage().window().setSize(new Dimension(1920, 1080));
-
-    // WebDriverWait wait = new WebDriverWait(driver, 20);
 
     driver.findElement(By.cssSelector("a:nth-child(2) .p-button-label")).click();
 

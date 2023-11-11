@@ -9,6 +9,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 
@@ -45,8 +46,8 @@ public class TesteIntegraProjetos {
         projeto.setStatus(StatusProjeto.CONCLUIDO);
         projeto.setTitulo("Projeto 1");
         projeto.setTipo(TipoProjeto.INOVACAO);
-        projeto.setDataInicio(new Date());
-        projeto.setDataTermino(new Date());
+        projeto.setDataInicio(LocalDate.of(2023,10,9));
+        projeto.setDataTermino(LocalDate.of(2024,10,9));
 
     }
 

@@ -3,6 +3,7 @@ package br.edu.ifpb.lids.TestesIntegração;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ public class TesteIntegraControllerColaborador {
         colaborador.setEstado("Paraiba");
         colaborador.setMatricula("202015020014");
         colaborador.setEndereco("Av.Cicero Marinho");
-        colaborador.setDataDeNascimento(new Date());
+        colaborador.setDataDeNascimento(LocalDate.of(2020,10,9));
         colaborador.setCargaHorariaSemanal(1F);
         colaborador.setLinkCurriculo("Link");
 
@@ -51,7 +52,7 @@ public class TesteIntegraControllerColaborador {
         colaborador.setEstado("Paraiba");
         colaborador.setMatricula("202015020014");
         colaborador.setEndereco("Av.Cicero Marinho");
-        colaborador.setDataDeNascimento(new Date());
+        colaborador.setDataDeNascimento(LocalDate.of(2020,10,9));
         colaborador.setCargaHorariaSemanal(1F);
         colaborador.setLinkCurriculo("Link");
 
@@ -70,7 +71,7 @@ public class TesteIntegraControllerColaborador {
         colaborador.setEstado("Paraiba");
         colaborador.setMatricula("202015020014");
         colaborador.setEndereco("Av.Cicero Marinho");
-        colaborador.setDataDeNascimento(new Date());
+        colaborador.setDataDeNascimento(LocalDate.of(2020,10,9));
         colaborador.setCargaHorariaSemanal(1F);
         colaborador.setLinkCurriculo("Link");
 
@@ -88,7 +89,7 @@ public class TesteIntegraControllerColaborador {
         colaborador.setEstado("Paraiba");
         colaborador.setMatricula("202015020014");
         colaborador.setEndereco("Av.Cicero Marinho");
-        colaborador.setDataDeNascimento(new Date());
+        colaborador.setDataDeNascimento(LocalDate.of(2020,10,9));
         colaborador.setCargaHorariaSemanal(1F);
         colaborador.setLinkCurriculo("Link");
 
@@ -106,7 +107,7 @@ public class TesteIntegraControllerColaborador {
         colaborador.setEstado("Paraiba");
         colaborador.setMatricula("202015020014");
         colaborador.setEndereco("Av.Cicero Marinho");
-        colaborador.setDataDeNascimento(new Date());
+        colaborador.setDataDeNascimento(LocalDate.of(2020,10,9));
         colaborador.setCargaHorariaSemanal(1F);
         colaborador.setLinkCurriculo("Link");
 
