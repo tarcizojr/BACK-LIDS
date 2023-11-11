@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifpb.lids.business.service.RegimeService;
 import br.edu.ifpb.lids.business.service.impl.RegimeServiceImpl;
+import br.edu.ifpb.lids.presentation.dto.AsociacaoDto;
 import br.edu.ifpb.lids.presentation.dto.EscalaDto;
 import br.edu.ifpb.lids.presentation.dto.ProjetoDto;
 import br.edu.ifpb.lids.presentation.dto.RegimeDto;
@@ -31,7 +32,7 @@ public class RegimeController {
         @PostMapping
     public ResponseEntity create(@RequestBody RegimeDto dto) {
 
-        try {
+         try {
             dto = mapper.map(regimeService.create(dto), RegimeDto.class);
         
             return new ResponseEntity(dto, HttpStatus.CREATED);
@@ -39,6 +40,7 @@ public class RegimeController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 
     @GetMapping("/all")
     public ResponseEntity<?> findAll(){
