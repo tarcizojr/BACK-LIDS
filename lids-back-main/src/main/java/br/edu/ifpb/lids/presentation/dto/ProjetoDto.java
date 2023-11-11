@@ -6,12 +6,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 public class ProjetoDto {
 
-    
     private Long id;
 
     private String titulo;
@@ -28,6 +26,6 @@ public class ProjetoDto {
 
     private StatusProjeto status;
   
-    private List<ColaboradorDto> colaboradores;
+    private AssociadoDto associado;
 
 }

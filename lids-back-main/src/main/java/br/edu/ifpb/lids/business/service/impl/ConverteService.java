@@ -67,8 +67,17 @@ public class ConverteService {
         return modelMapper.map(projeto, ProjetoDto.class);
     }
 
+    public AreaDeTrabalhoDto areatoToDto (AreaDeTrabalho area) {
+
+        return modelMapper.map(area, AreaDeTrabalhoDto.class);
+    }
+
     public Projeto dtoToProjeto (ProjetoDto dto) {
         return modelMapper.map(dto, Projeto.class);
+    }
+
+    public AreaDeTrabalho dtoToArea (AreaDeTrabalhoDto dto) {
+        return modelMapper.map(dto, AreaDeTrabalho.class);
     }
 
     public EquipamentoDto equipamentoToDto(Equipamento equipamento){

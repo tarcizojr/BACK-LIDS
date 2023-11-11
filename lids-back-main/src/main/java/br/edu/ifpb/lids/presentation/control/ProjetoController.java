@@ -3,12 +3,8 @@ package br.edu.ifpb.lids.presentation.control;
 import br.edu.ifpb.lids.business.service.ColaboradorService;
 import br.edu.ifpb.lids.business.service.ProjetoService;
 import br.edu.ifpb.lids.business.service.impl.ConverteService;
-import br.edu.ifpb.lids.model.entity.Colaborador;
 import br.edu.ifpb.lids.model.entity.Projeto;
-import br.edu.ifpb.lids.model.enums.StatusAssociado;
 import br.edu.ifpb.lids.model.enums.StatusProjeto;
-import br.edu.ifpb.lids.presentation.dto.AdicionaColaboradorRequest;
-import br.edu.ifpb.lids.presentation.dto.ColaboradorDto;
 import br.edu.ifpb.lids.presentation.dto.ProjetoDto;
 
 
@@ -56,7 +52,7 @@ public class ProjetoController {
 
 
     @GetMapping("/all")
-    public ResponseEntity<?> findAll() throws Exception {
+    public ResponseEntity<?> findAll() {
 
         List<ProjetoDto> dtos = projetoService.findAll().stream().map(this::mapToProjetorDto).toList();
 
@@ -74,31 +70,31 @@ public class ProjetoController {
         }
     }
     
-    @PostMapping("/addColaborador")
-    public ResponseEntity addColaborador(@RequestBody AdicionaColaboradorRequest request) {
-
-        try{
-            Colaborador colab = colaboradorService.findById(request.getIdColaborador());
-            Projeto projeto = projetoService.findById(request.getIdProjeto());
-
-            List<Colaborador> colaboradores = projeto.getColaboradores();
-
-            for(Colaborador colaborador: colaboradores){
-                if(colaborador.getId().equals(colab.getId())) {
-                    throw new IllegalStateException("Colaborador já cadastrado no projeto.");
-                }
-            }
-            colab.setStatus(StatusAssociado.ATIVO);
-            colaboradorService.update(colab.getId(), colab);
-            colaboradores.add(colab);
-
-            projetoService.update(projeto.getId(), projeto);
-
-            return ResponseEntity.ok().body(mapper.map(projeto, ProjetoDto.class));
-        } catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
+//    @PostMapping("/addColaborador")
+//    public ResponseEntity addColaborador(@RequestBody AdicionaColaboradorRequest request) {
+//
+//        try{
+//            Colaborador colab = colaboradorService.findById(request.getIdColaborador());
+//            Projeto projeto = projetoService.findById(request.getIdProjeto());
+//
+//            List<Colaborador> colaboradores = projeto.getColaboradores();
+//
+//            for(Colaborador colaborador: colaboradores){
+//                if(colaborador.getId().equals(colab.getId())) {
+//                    throw new IllegalStateException("Colaborador já cadastrado no projeto.");
+//                }
+//            }
+//            colab.setStatus(StatusAssociado.ATIVO);
+//            colaboradorService.update(colab.getId(), colab);
+//            colaboradores.add(colab);
+//
+//            projetoService.update(projeto.getId(), projeto);
+//
+//            return ResponseEntity.ok().body(mapper.map(projeto, ProjetoDto.class));
+//        } catch (Exception e){
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        }
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") Long id){
