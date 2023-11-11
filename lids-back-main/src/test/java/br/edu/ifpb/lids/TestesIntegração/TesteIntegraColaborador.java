@@ -9,7 +9,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Optional;
 
 import org.junit.Before;
