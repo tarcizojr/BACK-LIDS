@@ -1,5 +1,9 @@
 package br.edu.ifpb.lids.presentation.control;
 
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,26 +47,39 @@ public class AsociacaoControler {
 
     @Autowired
     private EscalaService escalaService;
-    
-    @Autowired
-	private ModelMapper mapper;
 
-     @PostMapping
+    @Autowired
+    private ModelMapper mapper;
+
+    @PostMapping
     public ResponseEntity create(@RequestBody CriarAsociacaoRequest asociacaoRequest) {
         AsociacaoDto dto = new AsociacaoDto();
 
         Colaborador c = colaboradorService.findById(asociacaoRequest.getIdColaborador());
-        dto.setColaborador(mapper.map(c, ColaboradorDto.class));
-
         Projeto p = projetoService.findById(asociacaoRequest.getIdProjeto());
-        dto.setProjeto(mapper.map(p, ProjetoDto.class));
-
         Escala r = escalaService.findById(asociacaoRequest.getIdEscala());
+
+        List<Asociacao> lista = asociacaoService.findAll();
+
+        if (lista.isEmpty()) {
+            for (Asociacao element : lista) {
+                if (element.getProjeto().getId().equals(p.getId())
+                        && element.getColaborador().getId().equals(c.getId())) {
+
+                    element.setDataTermino(LocalDate.now());
+                    asociacaoService.update(element.getId(), element);
+
+                }
+            }
+        }
+        dto.setDataInicio(LocalDate.now());
         dto.setEscala(mapper.map(r, EscalaDto.class));
+        dto.setColaborador(mapper.map(c, ColaboradorDto.class));
+        dto.setProjeto(mapper.map(p, ProjetoDto.class));
 
         try {
             dto = mapper.map(asociacaoService.create(dto), AsociacaoDto.class);
-        
+
             return new ResponseEntity(dto, HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

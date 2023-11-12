@@ -31,8 +31,9 @@ public class AsssocaicaoServiceImpl implements AsociacaoService {
 
     @Override
     public Asociacao update(Long id, Asociacao asociacao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        Asociacao a = asociacaoRepository.findById(id).get();
+        a.setDataTermino(asociacao.getDataTermino());
+        return asociacaoRepository.save(a);
     }
 
     @Override
@@ -43,8 +44,7 @@ public class AsssocaicaoServiceImpl implements AsociacaoService {
 
     @Override
     public List<Asociacao> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+       return asociacaoRepository.findAll();
     }
 
     @Override
