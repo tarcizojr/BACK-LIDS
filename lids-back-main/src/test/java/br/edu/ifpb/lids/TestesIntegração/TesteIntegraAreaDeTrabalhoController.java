@@ -6,7 +6,10 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.edu.ifpb.lids.presentation.control.AreaDeTrabalhoController;
+import br.edu.ifpb.lids.presentation.control.EquipamentoController;
+import br.edu.ifpb.lids.presentation.dto.AdicionarEquipamentoRequest;
 import br.edu.ifpb.lids.presentation.dto.AreaDeTrabalhoDto;
+import br.edu.ifpb.lids.presentation.dto.EquipamentoDto;
 
 public class TesteIntegraAreaDeTrabalhoController {
 
