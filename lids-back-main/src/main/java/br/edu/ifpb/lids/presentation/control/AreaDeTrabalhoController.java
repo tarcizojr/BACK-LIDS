@@ -122,8 +122,8 @@ public class AreaDeTrabalhoController {
 
 
 
-     private AreaDeTrabalhoDto mapToProjetorDto(AreaDeTrabalho projeto) {
-        return mapper.map(projeto, AreaDeTrabalhoDto.class);
+     private AreaDeTrabalhoDto mapToProjetorDto(AreaDeTrabalho area) {
+        return mapper.map(area, AreaDeTrabalhoDto.class);
     }
 
 

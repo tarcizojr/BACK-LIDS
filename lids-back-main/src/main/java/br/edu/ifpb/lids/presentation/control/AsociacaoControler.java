@@ -61,7 +61,7 @@ public class AsociacaoControler {
 
         List<Asociacao> lista = asociacaoService.findAll();
 
-        if (lista.isEmpty()) {
+        if (!lista.isEmpty()) {
             for (Asociacao element : lista) {
                 if (element.getProjeto().getId().equals(p.getId())
                         && element.getColaborador().getId().equals(c.getId())) {

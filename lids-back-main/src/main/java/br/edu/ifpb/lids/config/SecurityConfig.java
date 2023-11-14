@@ -32,6 +32,7 @@ public class SecurityConfig {
               authorizeConfig.requestMatchers("api/token").permitAll();
               authorizeConfig.requestMatchers("api/autenticado").permitAll();
               authorizeConfig.requestMatchers("api/sair").permitAll();
+             // authorizeConfig.requestMatchers("api/**").permitAll();
               
 
 
