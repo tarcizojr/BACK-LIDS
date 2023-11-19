@@ -43,7 +43,4 @@ public class Projeto implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusProjeto status;
 
-    @ManyToOne
-    private Associado associado;
-
 }
