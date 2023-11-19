@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.lids.business.service.PontoService;
+import br.edu.ifpb.lids.model.entity.Asociacao;
 import br.edu.ifpb.lids.model.entity.Colaborador;
 import br.edu.ifpb.lids.model.entity.Ponto;
 import br.edu.ifpb.lids.model.entity.Projeto;
@@ -35,8 +36,9 @@ public class PontoServiceImpl implements PontoService{
 
     @Override
     public Ponto update(Long id, Ponto ponto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        Ponto a = pontoRepository.findById(id).get();
+        a.setSaida(ponto.getSaida());
+        return pontoRepository.save(a);
     }
 
     @Override
