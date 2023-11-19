@@ -64,7 +64,7 @@ public class PontoController {
 
                 // Verificar se o colaborador já tem ponto registrado para o mesmo projeto no mesmo dia
                 Ponto pontoExistente = pontoService.findByColaboradorAndProjetoAndData(c, p, LocalDate.now());
-
+                System.out.println(pontoExistente + "-=====================");
                 if (pontoExistente != null) {
                     // Atualizar a hora de saída
                     pontoExistente.setSaida(LocalDateTime.now());
@@ -74,6 +74,7 @@ public class PontoController {
                     dto.setColaborador(mapper.map(c, ColaboradorDto.class));
                     dto.setProjeto(mapper.map(p, ProjetoDto.class));
                     dto.setEntrada(LocalDateTime.now());
+                    dto.setData(LocalDate.now());
                     dto = mapper.map(pontoService.create(dto), PontoDto.class);
                 }
 
