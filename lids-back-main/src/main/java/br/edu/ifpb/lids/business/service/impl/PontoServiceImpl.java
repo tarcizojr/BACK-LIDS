@@ -62,12 +62,14 @@ public class PontoServiceImpl implements PontoService{
                     ponto.setProjeto(projeto);
                     ponto.setEntrada(LocalDateTime.now());
                     ponto.setData(LocalDate.now());
+                    ponto = pontoRepository.save(ponto);
                 }
-            } else {
-                throw new IllegalStateException("Projeto e Colaborador Não Associados");
             }
         }
-        return pontoRepository.save(ponto);
+        if(ponto != null){
+            return ponto;
+        }
+        throw new IllegalStateException("Projeto e Colaborador Não Associados");
     }
 
     @Override
@@ -106,14 +108,18 @@ public class PontoServiceImpl implements PontoService{
 
     @Override
     public List<Ponto> findByColaboradorAndProjeto(PontoRequest pontoRequest) {
+        Colaborador colaborador = colaboradorService.findById(pontoRequest.getIdColaborador());
+        Projeto projeto = projetoService.findById(pontoRequest.getIdProjeto());
 
-        return null;
+        return pontoRepository.findByColaboradorAndProjeto(colaborador,projeto);
     }
 
 
     @Override
     public List<Ponto> findByColaborador(Long idColaborador) {
-        return null;
+        Colaborador colaborador = colaboradorService.findById(idColaborador);
+
+        return pontoRepository.findByColaborador(colaborador);
     }
 
     @Override

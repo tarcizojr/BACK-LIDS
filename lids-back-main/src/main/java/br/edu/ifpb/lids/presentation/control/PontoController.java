@@ -27,7 +27,8 @@ public class PontoController {
     public ResponseEntity create(@RequestBody PontoRequest pontoRequest) {
 
         try {
-            return new ResponseEntity(mapper.map(pontoService.create(pontoRequest), PontoDto.class), HttpStatus.CREATED);
+            PontoDto dto = mapper.map(pontoService.create(pontoRequest), PontoDto.class);
+            return new ResponseEntity(dto, HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -41,16 +42,16 @@ public class PontoController {
     @GetMapping("/colaboradorPorProjeto")
     public ResponseEntity<?> findByColaboradorAndProjeto(@RequestBody PontoRequest pontoRequest){
         try {
-            return new ResponseEntity<>(mapper.map(pontoService.findByColaboradorAndProjeto(pontoRequest), PontoDto.class), HttpStatus.CREATED);
+            return ResponseEntity.ok(pontoService.findByColaboradorAndProjeto(pontoRequest));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @GetMapping("/{idProjeto}")
-    public ResponseEntity<?> findByProjeto(@PathVariable Long idProjeto){
+    @GetMapping("/{idColaborador}")
+    public ResponseEntity<?> findByColaborador(@PathVariable Long idColaborador){
         try {
-            return new ResponseEntity<>(mapper.map(pontoService.findByProjeto(idProjeto), PontoDto.class), HttpStatus.CREATED);
+            return new ResponseEntity<>(mapper.map(pontoService.findByColaborador(idColaborador), PontoDto.class), HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
