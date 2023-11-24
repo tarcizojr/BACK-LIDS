@@ -9,12 +9,8 @@ import br.edu.ifpb.lids.model.enums.TipoEscala;
 import br.edu.ifpb.lids.presentation.control.EscalaController;
 import br.edu.ifpb.lids.presentation.dto.EscalaDto;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class TesteIntegraEscalaController {
-
-    @Autowired
-    private EscalaController escalaController;
 
     @Test
     public void testCreateEscala() {
@@ -57,7 +53,7 @@ public class TesteIntegraEscalaController {
     @Test
     public void testFindByIdEscala() {
         EscalaDto escalaDto = new EscalaDto();
-         EscalaController escalaController = new EscalaController();
+        EscalaController escalaController = new EscalaController();
         escalaDto.setTipo(TipoEscala.FIXA);
         escalaDto.setHorarioEntrada(LocalTime.of(8, 0));
         escalaDto.setHorarioSaida(LocalTime.of(17, 0));
