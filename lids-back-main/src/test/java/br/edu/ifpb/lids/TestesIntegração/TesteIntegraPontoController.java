@@ -3,23 +3,47 @@ package br.edu.ifpb.lids.TestesIntegração;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
+import java.util.Collections;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import br.edu.ifpb.lids.business.service.PontoService;
 import br.edu.ifpb.lids.model.entity.Colaborador;
 import br.edu.ifpb.lids.model.entity.Projeto;
 import br.edu.ifpb.lids.presentation.control.PontoController;
+import br.edu.ifpb.lids.presentation.dto.PontoDto;
 import br.edu.ifpb.lids.presentation.dto.PontoRequest;
-
-@SpringBootTest
+import org.modelmapper.ModelMapper;
+@RunWith(MockitoJUnitRunner.class)
 public class TesteIntegraPontoController {
 
-    @Autowired
+      @InjectMocks
     private PontoController pontoController;
+
+    @Mock
+    private PontoService pontoService;
+
+    @Mock
+    private ModelMapper mapper;
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
     public void testCreatePonto() {
@@ -37,41 +61,43 @@ public class TesteIntegraPontoController {
 
     }
 
-    // =================================================================================================
-    // TESTES PARA ARRUMAR
+    @Test
+    public void testGetAllPontos() {
+        when(pontoService.findAll()).thenReturn(Collections.emptyList());
 
-    // @Test
-    // public void testGetAllPontos() {
-    //     pontoController = new PontoController();
-    //     ResponseEntity<?> responseEntity = pontoController.findAll();
-    //     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-    //     assertNotNull(responseEntity.getBody(), "O corpo da resposta não deveria ser nulo");
-    // }
+        ResponseEntity<?> responseEntity = pontoController.findAll();
 
-    // @Test
-    // public void testFindByColaboradorAndProjeto() {
-    //       pontoController = new PontoController();
-    //     PontoRequest pontoRequest = new PontoRequest();
-    //     pontoRequest.setIdColaborador(1L);
-    //     pontoRequest.setIdProjeto(2L);
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertNotNull(responseEntity.getBody(), "O corpo da resposta não deveria ser nulo");
+    }
 
-    //     ResponseEntity<?> responseEntity = pontoController.findByColaboradorAndProjeto(pontoRequest);
+    @Test
+    public void testFindByColaboradorAndProjeto() {
+        PontoRequest pontoRequest = new PontoRequest();
+        pontoRequest.setIdColaborador(1L);
+        pontoRequest.setIdProjeto(2L);
 
-    //     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-    //     assertNotNull(responseEntity.getBody(), "O corpo da resposta não deveria ser nulo");
-    // }
+        when(pontoService.findByColaboradorAndProjeto(any(PontoRequest.class))).thenReturn(Collections.emptyList());
 
-    // @Test
-    // public void testFindByColaborador() {
-    //     pontoController = new PontoController();
-    //     Long idColaborador = 1L;
+        ResponseEntity<?> responseEntity = pontoController.findByColaboradorAndProjeto(pontoRequest);
 
-    //     ResponseEntity<?> responseEntity = pontoController.findByColaborador(idColaborador);
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertNotNull(responseEntity.getBody(), "O corpo da resposta não deveria ser nulo");
+    }
 
-    //     assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-    //     assertNotNull(responseEntity.getBody(), "O corpo da resposta não deveria ser nulo");
-    // }
+@Test
+public void testFindByColaborador() {
+    Long idColaborador = 1L;
 
-   
+    when(pontoService.findByColaborador(anyLong())).thenReturn(Collections.emptyList());
+
+    // Configurar mapper para não lançar exceções
+    when(mapper.map(any(), eq(PontoDto.class))).thenReturn(new PontoDto());
+
+    ResponseEntity<?> responseEntity = pontoController.findByColaborador(idColaborador);
+
+    assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+    assertNotNull(responseEntity.getBody(), "O corpo da resposta não deveria ser nulo");
+}
 
 }
