@@ -91,7 +91,6 @@ public void testFindByColaborador() {
 
     when(pontoService.findByColaborador(anyLong())).thenReturn(Collections.emptyList());
 
-    // Configurar mapper para não lançar exceções
     when(mapper.map(any(), eq(PontoDto.class))).thenReturn(new PontoDto());
 
     ResponseEntity<?> responseEntity = pontoController.findByColaborador(idColaborador);
