@@ -2,15 +2,12 @@ package br.edu.ifpb.lids.business.service.impl;
 
 import br.edu.ifpb.lids.business.service.ColaboradorService;
 import br.edu.ifpb.lids.model.entity.Colaborador;
-import br.edu.ifpb.lids.model.entity.Regime;
 import br.edu.ifpb.lids.model.enums.StatusAssociado;
 import br.edu.ifpb.lids.model.repository.ColaboradorRepository;
 import br.edu.ifpb.lids.model.repository.RegimeRepository;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -38,6 +35,9 @@ public class ColaboradorServiceImpl implements ColaboradorService {
         if (findByMatricula(colaborador.getMatricula()) != null) {
             throw new IllegalStateException("Colaborador já cadastrado.");
         }
+        if (findByEmail(colaborador.getEmail()) != null) {
+            throw new IllegalStateException("Email já cadastrado.");
+        }
         colaborador.setStatus(StatusAssociado.INATIVO);
         return colaboradorRepository.save(colaborador);
     }
@@ -51,6 +51,17 @@ public class ColaboradorServiceImpl implements ColaboradorService {
             colab = findById(id);
         } catch (Exception e) {
             throw new IllegalStateException("Colaborador Não Encontrado");
+        }
+
+        if (!colaborador.getMatricula().equals(colab.getMatricula())) {
+            if(findByMatricula(colaborador.getMatricula()) != null) {
+                throw new IllegalStateException("Matrícula já cadastrado.");
+            }
+        }
+        if (!colaborador.getEmail().equals(colab.getEmail())) {
+            if (findByEmail(colaborador.getEmail()) != null) {
+                throw new IllegalStateException("Email já cadastrado.");
+            }
         }
 
         if (colaborador.getCargaHorariaSemanal() != null)
@@ -97,6 +108,11 @@ public class ColaboradorServiceImpl implements ColaboradorService {
     public Colaborador findByMatricula(String matricula) {
 
         return colaboradorRepository.findByMatricula(matricula);
+    }
+
+    @Override
+    public Colaborador findByEmail(String email) {
+        return colaboradorRepository.findByEmail(email);
     }
 
 }

@@ -10,4 +10,6 @@ public interface ColaboradorRepository extends JpaRepository<Colaborador,Long> {
 
     Optional<Colaborador> findById(Long id);
     Colaborador findByMatricula(String matricula);
+
+    Colaborador findByEmail(String email);
 }

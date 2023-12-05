@@ -20,4 +20,6 @@ public interface ColaboradorService {
     Colaborador findById(Long id);
 
     Colaborador findByMatricula(String matricula);
+
+    Colaborador findByEmail(String email);
 }
