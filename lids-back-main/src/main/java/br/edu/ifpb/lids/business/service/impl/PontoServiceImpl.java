@@ -7,7 +7,9 @@ import java.util.List;
 import br.edu.ifpb.lids.business.service.AsociacaoService;
 import br.edu.ifpb.lids.business.service.ColaboradorService;
 import br.edu.ifpb.lids.business.service.ProjetoService;
+import br.edu.ifpb.lids.presentation.dto.PontoDto;
 import br.edu.ifpb.lids.presentation.dto.PontoRequest;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ import br.edu.ifpb.lids.model.entity.Projeto;
 import br.edu.ifpb.lids.model.repository.PontoRepository;
 
 @Service
-public class PontoServiceImpl implements PontoService{
+public class PontoServiceImpl implements PontoService {
 
     @Autowired
     private AsociacaoService asociacaoService;
@@ -34,6 +36,9 @@ public class PontoServiceImpl implements PontoService{
 
     @Autowired
     private PontoRepository pontoRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     private final Logger logger = LoggerFactory.getLogger(PontoServiceImpl.class);
 
@@ -66,7 +71,7 @@ public class PontoServiceImpl implements PontoService{
                 }
             }
         }
-        if(ponto != null){
+        if (ponto != null) {
             return ponto;
         }
         throw new IllegalStateException("Projeto e Colaborador Não Associados");
@@ -75,9 +80,9 @@ public class PontoServiceImpl implements PontoService{
     @Override
     public Ponto update(Long id, Ponto ponto) {
         Ponto pont;
-        try{
+        try {
             pont = findById(id);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new IllegalStateException("Ponto Não Encontrado");
         }
         pont.setSaida(ponto.getSaida());
@@ -85,9 +90,33 @@ public class PontoServiceImpl implements PontoService{
     }
 
     @Override
+    public Ponto updateHorarios(Long id, PontoDto dto) {
+
+        Ponto ponto = modelMapper.map(dto, Ponto.class);
+        Ponto pont;
+        try {
+            pont = findById(id);
+        } catch (Exception e) {
+            throw new IllegalStateException("Ponto Não Encontrado");
+        }
+
+        if ((ponto.getEntrada().getDayOfMonth() != pont.getData().getDayOfMonth()) || ponto.getSaida().getDayOfMonth() != pont.getData().getDayOfMonth()) {
+            throw new IllegalStateException("O ponto não pode ser atualizado para outra data.");
+        }
+
+        if (ponto.getEntrada() != null && !ponto.getEntrada().equals(pont.getEntrada())) {
+            pont.setEntrada(ponto.getEntrada());
+        }
+        if (ponto.getSaida() != null && !ponto.getSaida().equals(pont.getSaida())) {
+            pont.setSaida(ponto.getSaida());
+        }
+        return pontoRepository.save(pont);
+    }
+
+    @Override
     public void delete(Long id) {
         Ponto ponto = findById(id);
-        if(ponto == null){
+        if (ponto == null) {
             throw new IllegalStateException("Ponto Não Encontrado");
         }
         pontoRepository.deleteById(id);
@@ -100,8 +129,8 @@ public class PontoServiceImpl implements PontoService{
 
     @Override
     public Ponto findById(Long id) {
-        if(id == null){
-            throw new IllegalStateException("Ponto Não Encontrado");
+        if (id == null) {
+            throw new IllegalStateException("O ID é nulo.");
         }
         return pontoRepository.findById(id).get();
     }
@@ -111,7 +140,7 @@ public class PontoServiceImpl implements PontoService{
         Colaborador colaborador = colaboradorService.findById(pontoRequest.getIdColaborador());
         Projeto projeto = projetoService.findById(pontoRequest.getIdProjeto());
 
-        return pontoRepository.findByColaboradorAndProjeto(colaborador,projeto);
+        return pontoRepository.findByColaboradorAndProjeto(colaborador, projeto);
     }
 
 
@@ -130,5 +159,5 @@ public class PontoServiceImpl implements PontoService{
     public Ponto findByColaboradorAndProjetoAndData(Colaborador colaborador, Projeto projeto, LocalDate data) {
         return pontoRepository.findByColaboradorAndProjetoAndData(colaborador, projeto, data);
     }
-    
+
 }

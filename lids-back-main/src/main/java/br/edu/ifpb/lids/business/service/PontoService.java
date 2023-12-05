@@ -3,6 +3,7 @@ package br.edu.ifpb.lids.business.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import br.edu.ifpb.lids.presentation.dto.PontoDto;
 import br.edu.ifpb.lids.presentation.dto.PontoRequest;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ public interface PontoService {
     Ponto create(PontoRequest pontoRequest);
 
     Ponto update(Long id,Ponto ponto);
+
+    Ponto updateHorarios(Long id, PontoDto dto);
 
     void delete(Long id);
 

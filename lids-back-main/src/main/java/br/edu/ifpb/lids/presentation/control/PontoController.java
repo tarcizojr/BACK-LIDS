@@ -1,6 +1,7 @@
 package br.edu.ifpb.lids.presentation.control;
 
 
+import br.edu.ifpb.lids.model.entity.Ponto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,17 @@ public class PontoController {
         }
     }
 
+    @PatchMapping("/{idPonto}/horarios")
+    public ResponseEntity update(@PathVariable("idPonto") Long id, @RequestBody PontoDto dto){
+        try{
+            dto.setId(id);
+            dto = mapper.map(pontoService.updateHorarios(id, dto), PontoDto.class);
+            return ResponseEntity.ok(dto);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @GetMapping("/all")
     public ResponseEntity<?> findAll(){
         return ResponseEntity.ok(pontoService.findAll());
@@ -48,12 +60,22 @@ public class PontoController {
         }
     }
 
-    @GetMapping("/{idColaborador}")
+    @GetMapping("/colaborador/{idColaborador}")
     public ResponseEntity<?> findByColaborador(@PathVariable Long idColaborador){
         try {
             return new ResponseEntity<>(mapper.map(pontoService.findByColaborador(idColaborador), PontoDto.class), HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity findById(@PathVariable("id") Long id){
+        try {
+            Ponto ponto = pontoService.findById(id);
+            return ResponseEntity.ok(mapper.map(ponto, PontoDto.class));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Ponto não encontrado.");
         }
     }
     

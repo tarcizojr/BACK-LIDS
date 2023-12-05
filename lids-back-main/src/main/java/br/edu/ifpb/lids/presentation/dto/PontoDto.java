@@ -10,6 +10,8 @@ import lombok.Data;
 @Data
 public class PontoDto {
 
+    private Long id;
+
     private Projeto projeto;
 
     private Colaborador colaborador;
